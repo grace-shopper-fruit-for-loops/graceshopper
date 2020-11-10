@@ -1,19 +1,105 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  Product,
+  Customer,
+  UserInfo,
+  UserType,
+  OrderDetail
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+  const customers = await Promise.all([
+    Customer.create({
+      firstName: 'Elisa',
+      lastName: 'Levet',
+      email: 'elisa@hotmail.com',
+      phone: '605-123-1234',
+      address: '101 Main St'
+    }),
+    Customer.create({
+      firstName: 'Mackenzie',
+      lastName: 'Kroon',
+      email: 'mkroon@gmail.com',
+      phone: '605-124-1234',
+      address: '49 Main St'
+    })
   ])
 
-  console.log(`seeded ${users.length} users`)
+  const products = await Promise.all([
+    Product.create({
+      name: 'Orange jucie',
+      description: 'full of vitamin c!',
+      category: 'Juice',
+      quantity: 6,
+      price: 5,
+      imageUrl:
+        'https://img1.mashed.com/img/gallery/this-is-the-maximum-amount-of-orange-juice-you-should-drink-each-day/intro-1585587621.jpg'
+    }),
+    Product.create({
+      name: 'Apple jucie',
+      description: 'good for the kids!',
+      category: 'Juice',
+      quantity: 4,
+      price: 4,
+      imageUrl:
+        'https://img1.mashed.com/img/gallery/this-is-the-maximum-amount-of-orange-juice-you-should-drink-each-day/intro-1585587621.jpg'
+    }),
+    Product.create({
+      name: 'Green jucie',
+      description: 'detox after a crazy weekend!',
+      category: 'Juice',
+      quantity: 4,
+      price: 9,
+      imageUrl:
+        'https://img1.mashed.com/img/gallery/this-is-the-maximum-amount-of-orange-juice-you-should-drink-each-day/intro-1585587621.jpg'
+    })
+  ])
+
+  // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
+
+  const user_type = await Promise.all([
+    UserType.create({
+      name: 'admin'
+    }),
+    UserType.create({
+      name: 'customer'
+    }),
+    UserType.create({
+      name: 'guest'
+    })
+  ])
+
+  const user_info = await Promise.all([
+    UserInfo.create({
+      userName: 'mkroon94',
+      password: '1234567'
+    }),
+    UserInfo.create({
+      userName: 'elisa2',
+      password: '1234567'
+    }),
+    UserInfo.create({
+      userName: 'jessica9',
+      password: '1234567'
+    })
+  ])
+
+  const order_details = await Promise.all([
+    OrderDetail.create({
+      quantity: 1,
+      price: 4
+    }),
+    OrderDetail.create({
+      quantity: 2,
+      price: 8
+    })
+  ])
 }
 
 // We've separated the `seed` function from the `runSeed` function.
