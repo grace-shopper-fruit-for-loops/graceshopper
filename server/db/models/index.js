@@ -13,10 +13,11 @@ const OrderDetail = require('./orderDetail')
  */
 
 Customer.belongsToMany(OrderDetail, {through: 'Orders'})
-Customer.belongsTo(UserInfo)
+//Customer.belongsTo(UserInfo)
+UserInfo.belongsTo(Customer)
 OrderDetail.hasMany(Product)
 // UserInfo.hasOne(UserType)
-UserInfo.hasOne(Customer)
+//UserInfo.hasOne(Customer)
 UserInfo.belongsTo(UserType)
 
 /**
