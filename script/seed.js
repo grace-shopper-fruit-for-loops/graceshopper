@@ -1,32 +1,32 @@
 'use strict'
 
 const db = require('../server/db')
-const {
-  Product,
-  Customer,
-  UserInfo,
-  UserType,
-  OrderDetail
-} = require('../server/db/models')
+const {Product, User, Order, OrderDetails} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const customers = await Promise.all([
-    Customer.create({
+  const users = await Promise.all([
+    User.create({
       firstName: 'Elisa',
       lastName: 'Levet',
       email: 'elisa@hotmail.com',
       phone: '605-123-1234',
-      address: '101 Main St'
+      address: '101 Main St',
+      isAdmin: false,
+      userName: 'elisa000',
+      password: '12345!'
     }),
-    Customer.create({
+    User.create({
       firstName: 'Mackenzie',
       lastName: 'Kroon',
       email: 'mkroon@gmail.com',
       phone: '605-124-1234',
-      address: '49 Main St'
+      address: '49 Main St',
+      isAdmin: false,
+      userName: 'mkroon25',
+      password: '12345?!'
     })
   ])
 
@@ -63,46 +63,29 @@ async function seed() {
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 
-  const user_type = await Promise.all([
-    UserType.create({
-      name: 'admin'
+  const orders = await Promise.all([
+    Order.create({
+      isFulfilled: false,
+      userId: 1
     }),
-    UserType.create({
-      name: 'customer'
-    }),
-    UserType.create({
-      name: 'guest'
+    Order.create({
+      isFulfilled: false,
+      userId: 2
     })
-  ])
-
-  const user_info = await Promise.all([
-    UserInfo.create({
-      userName: 'mkroon94',
-      password: '1234567',
-      customerId: 1,
-      userTypeId: 1
-    }),
-    UserInfo.create({
-      userName: 'elisa2',
-      password: '1234567',
-      customerId: 2,
-      userTypeId: 2
-    })
-    // UserInfo.create({
-    //   userName: 'jessica9',
-    //   password: '1234567',
-    //   userTypeId: 3,
-    // }),
   ])
 
   const order_details = await Promise.all([
-    OrderDetail.create({
+    OrderDetails.create({
       quantity: 1,
-      price: 4
+      price: 4,
+      orderId: 1,
+      productId: 1
     }),
-    OrderDetail.create({
+    OrderDetails.create({
       quantity: 2,
-      price: 8
+      price: 8,
+      orderId: 2,
+      productId: 2
     })
   ])
 }
