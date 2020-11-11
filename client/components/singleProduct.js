@@ -26,6 +26,9 @@ class SingleProduct extends React.Component {
           <h5>{product.category}</h5>
           <h5>Price: ${product.price}</h5>
           <p>Details: {product.description}</p>
+          <div>
+            Quantity: <input />
+          </div>
 
           <button>Add to cart</button>
         </div>
