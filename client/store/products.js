@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-// ACTION CREATOR
 const GET_PRODUCTS = 'GET_PRODUCTS'
 
 const getProducts = products => ({
@@ -8,7 +7,6 @@ const getProducts = products => ({
   products
 })
 
-// THUNK CREATOR
 export const fetchProducts = () => {
   return async dispatch => {
     try {
@@ -20,10 +18,9 @@ export const fetchProducts = () => {
   }
 }
 
-// REDUCER
 const initialState = []
 
-export default function productsReducer(state = initialState, action) {
+export default function products(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products

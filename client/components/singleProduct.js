@@ -30,7 +30,7 @@ class SingleProduct extends React.Component {
             Quantity: <input />
           </div>
 
-          <button>Add to cart</button>
+          <button>Add to Cart</button>
         </div>
       </div>
     )

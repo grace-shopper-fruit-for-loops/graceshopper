@@ -30,7 +30,7 @@ class AllProducts extends React.Component {
                   height="300"
                   className="all-images"
                 />
-                <h4>Price: {product.price}</h4>
+                <h5>Price: ${product.price}</h5>
                 <button>Add to Cart</button>
               </div>
             ))}
