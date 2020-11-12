@@ -2,10 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchSingleProduct} from '../store/singleProduct'
+import Order from './order'
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
+    this.passProps = this.passProps.bind(this)
   }
 
   componentDidMount() {
@@ -14,6 +16,11 @@ class SingleProduct extends React.Component {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  passProps() {
+    console.log('handle click message--->', this.props.singleProduct)
+    return this.props.passProps
   }
 
   render() {
@@ -29,8 +36,9 @@ class SingleProduct extends React.Component {
           <div>
             Quantity: <input />
           </div>
-
-          <button>Add to Cart</button>
+          <button onClick={() => this.passProps} type="submit">
+            Add to Cart
+          </button>
         </div>
       </div>
     )

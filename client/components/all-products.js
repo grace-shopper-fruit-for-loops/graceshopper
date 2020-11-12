@@ -16,8 +16,6 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-
     return (
       <div id="all-products">
         <h2> These are all our healthy and yummy products! </h2>
