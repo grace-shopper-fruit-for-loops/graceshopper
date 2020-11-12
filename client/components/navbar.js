@@ -8,6 +8,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     {/* <h1>Juices and Smoothies </h1> */}
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
