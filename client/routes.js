@@ -4,8 +4,11 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import SingleProduct from './components/singleProduct'
-import {me} from './store'
 import AllProducts from './components/all-products'
+import {me} from './store'
+import Home from './components/home'
+// import Signup from './components/signup'
+
 
 /**
  * COMPONENT
@@ -23,6 +26,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={Home} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
 
