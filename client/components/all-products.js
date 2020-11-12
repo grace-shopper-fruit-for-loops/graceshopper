@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
+import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
   constructor(props) {
@@ -24,12 +25,15 @@ class AllProducts extends React.Component {
           <div className="container">
             {this.props.products.map(product => (
               <div key={product.id}>
-                <h3>{product.name}</h3>
-                <img
-                  src={product.imageUrl}
-                  height="300"
-                  className="all-images"
-                />
+                <Link to={`/products/${product.id}`}>
+                  <h3>{product.name}</h3>
+                  <img
+                    src={product.imageUrl}
+                    height="300"
+                    className="all-images"
+                  />
+                </Link>
+
                 <h5>Price: ${product.price}</h5>
                 <button>Add to Cart</button>
               </div>

@@ -15,7 +15,6 @@ async function seed() {
       phone: '605-123-1234',
       address: '101 Main St',
       isAdmin: false,
-      userName: 'elisa000',
       password: '12345!'
     }),
     User.create({
@@ -25,7 +24,6 @@ async function seed() {
       phone: '605-124-1234',
       address: '49 Main St',
       isAdmin: false,
-      userName: 'mkroon25',
       password: '12345?!'
     }),
     User.create({
@@ -35,7 +33,6 @@ async function seed() {
       phone: '605-124-1254',
       address: '765 Main St',
       isAdmin: false,
-      userName: 'jessic',
       password: 'caracoles'
     })
   ])
