@@ -15,13 +15,22 @@ nav a {
   margin: 1em;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
+} */
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 2;
+  margin: 5em;
+  width: 50%;
+  background: linear-gradient(50deg, #eee, #fff);
 }
 .img-nav {
   border-radius: 8px;
-  border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
   width: 50px;

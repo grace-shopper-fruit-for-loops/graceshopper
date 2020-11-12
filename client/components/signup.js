@@ -10,7 +10,7 @@ const SignUp = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="form-group">
+    <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="firstName">
@@ -44,13 +44,16 @@ const SignUp = props => {
           />
         </div>
         <div>
-          <button className="btn btn-success" type="submit">
+          <button className="btn btn-primary" type="submit">
             {displayName}
           </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
+        <br />
+        <a href="/auth/google" className="btn btn-success">
+          {displayName} with Google
+        </a>
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
     </div>
   )
 }

@@ -24,7 +24,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link>
             {' '}
             <img
-              src="https://www.flaticon.com/svg/static/icons/svg/2331/2331970.svg"
+              src="https://www.flaticon.com/svg/static/icons/svg/879/879815.svg"
               className="img-nav"
             />
           </Link>
