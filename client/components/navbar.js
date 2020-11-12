@@ -21,7 +21,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/">Home</Link>
           <Link to="/products"> Products</Link>
-          <Link>
+          <Link to="/orders">
             {' '}
             <img
               src="https://www.flaticon.com/svg/static/icons/svg/879/879815.svg"
