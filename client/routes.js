@@ -8,6 +8,8 @@ import AllProducts from './components/all-products'
 import {me} from './store'
 import Home from './components/home'
 import Order from './components/order'
+import OrderConfirmation from './components/order-confirmation'
+import ErrorPage from './components/ErrorPage'
 // import Signup from './components/signup'
 
 /**
@@ -30,6 +32,8 @@ class Routes extends Component {
         <Route exact path="/orders" component={Order} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/orders/confirmed" component={OrderConfirmation} />
+        {/* <Route path="*" component={ErrorPage} /> */}
 
         {isLoggedIn && (
           <Switch>
