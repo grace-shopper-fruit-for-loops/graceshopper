@@ -2,12 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchSingleProduct} from '../store/singleProduct'
+import {fetchAddToCart} from '../store/order'
 import Order from './order'
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
-    this.passProps = this.passProps.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -18,9 +19,9 @@ class SingleProduct extends React.Component {
     }
   }
 
-  passProps() {
-    console.log('handle click message--->', this.props.singleProduct)
-    return this.props.passProps
+  handleClick = id => {
+    console.log(id)
+    this.props.addToCart(id)
   }
 
   render() {
@@ -30,6 +31,7 @@ class SingleProduct extends React.Component {
         <div className="single-product-container">
           <h1>{product.name}</h1>
           <img src={product.imageUrl} className="img-products" />
+
           <h5>{product.category}</h5>
           <h5>Price: ${product.price}</h5>
           <p>Details: {product.description}</p>
@@ -37,9 +39,13 @@ class SingleProduct extends React.Component {
             Quantity: <input />
           </div>
           <button
-            onClick={() => this.passProps}
             type="submit"
             className="btn btn-success"
+       
+            onClick={() => {
+              this.handleClick(product.id)
+            }}
+
           >
             Add to Cart
           </button>
@@ -57,7 +63,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadSingleProduct: id => dispatch(fetchSingleProduct(id))
+    loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
+    addToCart: id => dispatch(fetchAddToCart(id))
   }
 }
 

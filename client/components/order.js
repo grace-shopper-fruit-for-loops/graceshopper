@@ -1,19 +1,22 @@
 import React from 'react'
-import singleProduct from './singleProduct'
+import {fetchCart, fetchAddToCart} from '../store/order'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-export default class Order extends React.Component {
+class Order extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      name: '',
-      quantity: 0,
-      price: 0,
-      subtotal: 0
+  }
+  componentDidMount() {
+    try {
+      this.props.loadTotalCart()
+    } catch (error) {
+      console.log(error)
     }
   }
 
   render() {
-    console.log(this.props, 'props')
+    const cart = this.props.shoppingCart
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -27,12 +30,15 @@ export default class Order extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>fake name</td>
-              <td>fake qty</td>
-              <td>fake price</td>
-              <td>fake total price</td>
-            </tr>
+            {cart.map(el => (
+              <tr key={el.id}>
+                <td>{el.productId}</td>
+                <td>{el.quantity}</td>
+                <td>${el.price}</td>
+
+                <td>${el.quantity * el.price}</td>
+              </tr>
+            ))}
             <tr>
               <td colSpan="3.5" align="right">
                 Subtotal
@@ -40,7 +46,24 @@ export default class Order extends React.Component {
             </tr>
           </tbody>
         </table>
+        <Link to="/orders/confirmed">
+          <button>Checkout</button>
+        </Link>
       </div>
     )
   }
 }
+
+const mapState = state => {
+  return {
+    shoppingCart: state.shoppingCart
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    loadTotalCart: () => dispatch(fetchCart())
+  }
+}
+
+export default connect(mapState, mapDispatch)(Order)
