@@ -56,7 +56,7 @@ async function seed() {
       quantity: 4,
       price: 4,
       imageUrl:
-        'https://cdn.pixabay.com/photo/2016/11/28/22/07/punch-1866178_1280.jpg'
+        'https://images.unsplash.com/photo-1605199910378-edb0c0709ab4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
     }),
     Product.create({
       name: 'Tomato Juice',
@@ -136,7 +136,7 @@ async function seed() {
       quantity: 4,
       price: 9,
       imageUrl:
-        'https://cdn.pixabay.com/photo/2015/02/19/13/59/breakfast-drink-642121__480.jpg'
+        'https://images.unsplash.com/photo-1555411093-41f7864ed3a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
     }),
     Product.create({
       name: 'Kiwi-wi',

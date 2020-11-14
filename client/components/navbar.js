@@ -7,11 +7,20 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     {/* <h1>Juices and Smoothies </h1> */}
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar  nav-color ">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
+          <Link to="/products"> Products</Link>
+          <Link to="/orders">
+            {' '}
+            <img
+              src="https://www.flaticon.com/svg/static/icons/svg/879/879815.svg"
+              className="img-nav"
+            />
+          </Link>
+
           <a href="#" onClick={handleClick}>
             Logout
           </a>

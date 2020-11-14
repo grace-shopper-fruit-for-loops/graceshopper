@@ -10,15 +10,10 @@ label {
   display: block;
 }
 
-nav a {
+a {
   display: inline-block;
   margin: 1em;
 }
-
-/* form div {
-  margin: 1em;
-  display: inline-block;
-} */
 
 form {
   display: flex;
@@ -36,10 +31,23 @@ form {
   width: 50px;
 }
 
-.img-home {
+/* .img-home {
   border-radius: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
   width: 200px;
+} */
+
+.nav-color {
+  background-color: #ffffff;
+}
+
+.img-products {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 300px;
+  height: 310px;
 }

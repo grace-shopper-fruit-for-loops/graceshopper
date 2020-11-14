@@ -29,14 +29,18 @@ class SingleProduct extends React.Component {
       <div>
         <div className="single-product-container">
           <h1>{product.name}</h1>
-          <img src={product.imageUrl} />
+          <img src={product.imageUrl} className="img-products" />
           <h5>{product.category}</h5>
           <h5>Price: ${product.price}</h5>
           <p>Details: {product.description}</p>
           <div>
             Quantity: <input />
           </div>
-          <button onClick={() => this.passProps} type="submit">
+          <button
+            onClick={() => this.passProps}
+            type="submit"
+            className="btn btn-success"
+          >
             Add to Cart
           </button>
         </div>

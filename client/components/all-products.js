@@ -21,21 +21,25 @@ class AllProducts extends React.Component {
         <h2> These are all our healthy and yummy products! </h2>
         <div>
           <div className="container">
-            {this.props.products.map(product => (
-              <div key={product.id}>
-                <Link to={`/products/${product.id}`}>
-                  <h3>{product.name}</h3>
-                  <img
-                    src={product.imageUrl}
-                    height="300"
-                    className="all-images"
-                  />
-                </Link>
+            <div className="row">
+              <div className="col">
+                {this.props.products.map(product => (
+                  <div key={product.id}>
+                    <Link to={`/products/${product.id}`}>
+                      <h3>{product.name}</h3>
+                      <img
+                        src={product.imageUrl}
+                        height="300"
+                        className="img-products"
+                      />
+                    </Link>
 
-                <h5>Price: ${product.price}</h5>
-                <button>Add to Cart</button>
+                    <h5>Price: ${product.price}</h5>
+                    <button>Add to Cart</button>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
