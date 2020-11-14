@@ -18,8 +18,8 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    const user = this.props.user
-    const order = this.props.order
+    const {user, order} = this.props
+
     console.log('user-->', order)
     return (
       <div id="all-products">
@@ -63,7 +63,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchAllProducts: () => dispatch(fetchProducts()),
-
     postNewOrder: userId => dispatch(postNewOrder(userId))
   }
 }

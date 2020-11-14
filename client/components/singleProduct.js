@@ -28,6 +28,7 @@ class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.singleProduct
+    console.log('props in single product', this.props)
     return (
       <div>
         <div className="single-product-container">
@@ -57,7 +58,9 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    singleProduct: state.singleProduct
+    singleProduct: state.singleProduct,
+    user: state.user,
+    order: state.shoppingCart.order
   }
 }
 
