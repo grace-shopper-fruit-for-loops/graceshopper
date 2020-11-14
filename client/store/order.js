@@ -42,7 +42,7 @@ export const fetchAddToCart = id => {
       console.log('data --->', data)
       dispatch(addToCart(data))
     } catch (error) {
-      console.log(error, 'error in thunk')
+      console.log(error, 'error in THIS thunk')
     }
   }
 }
