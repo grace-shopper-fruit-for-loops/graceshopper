@@ -13,9 +13,9 @@ const getShoppingCart = items => ({
 })
 
 // once user clicks add to cart -> post order to order details table
-const addToCart = id => ({
+const addToCart = product => ({
   type: ADD_TO_CART,
-  id
+  product
 })
 
 const createOrder = userId => ({
@@ -37,17 +37,22 @@ export const fetchCart = () => {
   }
 }
 
-export const fetchAddToCart = id => {
+export const fetchAddToCart = formData => {
   return async dispatch => {
     try {
-      const {data} = await axios.post(`/api/orders/${id}`)
-      console.log('data --->', data)
+      const {data} = await axios.post(
+        '/api/orders/orderDetails',
+        formData.product
+      )
       dispatch(addToCart(data))
+      // console.log('data --->', data)
     } catch (error) {
       console.log(error, 'error in THIS thunk')
     }
   }
 }
+
+// export const addCampusThunk = (formData) => async (dispatch) => {  const { data: newCampus } = await axios.post(    "/api/campuses",    formData.campus  );  dispatch(addCampus(newCampus));};
 
 export const postNewOrder = userId => {
   console.log('userID in thunk-->', userId)
@@ -67,12 +72,14 @@ const initalState = {
   order: {}
 }
 
+// shoppingCart: {orders:{}, products: []}
+
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
     case GET_SHOPPING_CART:
       return {...state, shoppingCart: action.items}
     case ADD_TO_CART:
-      return [...state, action.id]
+      return {...state, shoppingCart: action.product}
     case CREATE_ORDER:
       return {...state, order: action.userId}
     default:

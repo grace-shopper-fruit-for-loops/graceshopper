@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
-import {postNewOrder, fetchNewOrder} from '../store/order'
+import {postNewOrder} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
@@ -64,8 +64,7 @@ const mapDispatch = dispatch => {
   return {
     fetchAllProducts: () => dispatch(fetchProducts()),
 
-    postNewOrder: userId => dispatch(postNewOrder(userId)),
-    getNewOrder: id => dispatch(fetchNewOrder(id))
+    postNewOrder: userId => dispatch(postNewOrder(userId))
   }
 }
 
