@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
+import {postNewOrder} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
@@ -10,17 +11,26 @@ class AllProducts extends React.Component {
   componentDidMount() {
     try {
       this.props.fetchAllProducts()
+      // this.props.getNewOrder(id)
     } catch (error) {
       console.log(error)
     }
   }
 
   render() {
+    const {user, order} = this.props
+
+    console.log('user-->', order)
     return (
       <div id="all-products">
         <h2> These are all our healthy and yummy products! </h2>
         <div>
-          <button type="submit">Create New Order</button>
+          <button
+            onClick={() => this.props.postNewOrder(user.id)}
+            type="submit"
+          >
+            Create New Order
+          </button>
           <div className="products-list-container">
             {this.props.products.map(product => (
               <div key={product.id}>
@@ -44,13 +54,16 @@ class AllProducts extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user,
+    order: state.order
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllProducts: () => dispatch(fetchProducts())
+    fetchAllProducts: () => dispatch(fetchProducts()),
+    postNewOrder: userId => dispatch(postNewOrder(userId))
   }
 }
 

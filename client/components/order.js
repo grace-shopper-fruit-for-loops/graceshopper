@@ -16,7 +16,9 @@ class Order extends React.Component {
   }
 
   render() {
-    const cart = this.props.shoppingCart
+    console.log('props in shopping cart component--->', this.props)
+    const cart = this.props.shoppingCart.shoppingCart
+    console.log('Cart->', cart)
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>

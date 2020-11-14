@@ -4,11 +4,13 @@ import {Link} from 'react-router-dom'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {fetchAddToCart} from '../store/order'
 import Order from './order'
+import {fetchProducts} from '../store/products'
+import {postNewOrder} from '../store/order'
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -19,13 +21,14 @@ class SingleProduct extends React.Component {
     }
   }
 
-  handleClick = id => {
-    console.log(id)
-    this.props.addToCart(id)
-  }
+  // handleClick = (product) => {
+  //   console.log('order->', this.props)
+  //   this.props.addToCart(product.id)
+  // }
 
   render() {
     const product = this.props.singleProduct
+    console.log('props in single product', this.props)
     return (
       <div>
         <div className="single-product-container">
@@ -41,11 +44,9 @@ class SingleProduct extends React.Component {
           <button
             type="submit"
             className="btn btn-success"
-       
             onClick={() => {
-              this.handleClick(product.id)
+              this.props.addToCart(product)
             }}
-
           >
             Add to Cart
           </button>
@@ -57,14 +58,16 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    singleProduct: state.singleProduct
+    singleProduct: state.singleProduct,
+    user: state.user,
+    order: state.shoppingCart.order
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: id => dispatch(fetchAddToCart(id))
+    addToCart: product => dispatch(fetchAddToCart(product))
   }
 }
 

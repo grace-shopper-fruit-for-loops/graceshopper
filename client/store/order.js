@@ -6,14 +6,16 @@ const ADD_TO_CART = 'ADD_TO_CART'
 
 const CREATE_ORDER = 'CREATE_ORDER'
 
+// load products in shopping cart component
 const getShoppingCart = items => ({
   type: GET_SHOPPING_CART,
   items
 })
 
-const addToCart = id => ({
+// once user clicks add to cart -> post order to order details table
+const addToCart = product => ({
   type: ADD_TO_CART,
-  id
+  product
 })
 
 const createOrder = userId => ({
@@ -35,22 +37,29 @@ export const fetchCart = () => {
   }
 }
 
-export const fetchAddToCart = id => {
+export const fetchAddToCart = formData => {
   return async dispatch => {
     try {
-      const {data} = await axios.post(`/api/orders/${id}`)
-      console.log('data --->', data)
+      const {data} = await axios.post(
+        '/api/orders/orderDetails',
+        formData.product
+      )
       dispatch(addToCart(data))
+      // console.log('data --->', data)
     } catch (error) {
       console.log(error, 'error in THIS thunk')
     }
   }
 }
 
+// export const addCampusThunk = (formData) => async (dispatch) => {  const { data: newCampus } = await axios.post(    "/api/campuses",    formData.campus  );  dispatch(addCampus(newCampus));};
+
 export const postNewOrder = userId => {
+  console.log('userID in thunk-->', userId)
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders/newOrder', userId)
+      const {data} = await axios.post(`/api/orders/newOrder`, {userId: userId})
+      console.log('DATA IN THUNK->', data)
       dispatch(createOrder(data))
     } catch (error) {
       console.log(error)
@@ -58,16 +67,21 @@ export const postNewOrder = userId => {
   }
 }
 
-const initalState = []
+const initalState = {
+  shoppingCart: [],
+  order: {}
+}
+
+// shoppingCart: {orders:{}, products: []}
 
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
     case GET_SHOPPING_CART:
-      return action.items
+      return {...state, shoppingCart: action.items}
     case ADD_TO_CART:
-      return [...state, action.id]
+      return {...state, shoppingCart: action.product}
     case CREATE_ORDER:
-      return action.orderId
+      return {...state, order: action.userId}
     default:
       return state
   }
