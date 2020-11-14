@@ -30,7 +30,8 @@ class SingleProduct extends React.Component {
       <div>
         <div className="single-product-container">
           <h1>{product.name}</h1>
-          <img className="single-product-img" src={product.imageUrl} />
+          <img src={product.imageUrl} className="img-products" />
+
           <h5>{product.category}</h5>
           <h5>Price: ${product.price}</h5>
           <p>Details: {product.description}</p>
@@ -39,9 +40,12 @@ class SingleProduct extends React.Component {
           </div>
           <button
             type="submit"
+            className="btn btn-success"
+       
             onClick={() => {
               this.handleClick(product.id)
             }}
+
           >
             Add to Cart
           </button>

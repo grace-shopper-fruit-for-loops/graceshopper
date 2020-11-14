@@ -20,8 +20,11 @@ class AllProducts extends React.Component {
       <div id="all-products">
         <h2> These are all our healthy and yummy products! </h2>
         <div>
+
+
           <button type="submit">Create New Order</button>
-          <div className="products-list-container">
+         <div className="products-list-container">
+      
             {this.props.products.map(product => (
               <div key={product.id}>
                 <Link to={`/products/${product.id}`}>
@@ -34,8 +37,10 @@ class AllProducts extends React.Component {
                 </Link>
 
                 <h5>Price: ${product.price}</h5>
+            
+
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
