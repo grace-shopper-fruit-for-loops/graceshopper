@@ -1,36 +1,16 @@
 const router = require('express').Router()
-const {OrderDetails} = require('../db/models')
-const Product = require('../db/models/product')
-const Order = require('../db/models/order')
+const {OrderDetails, Product, Order} = require('../db/models')
+// const Product = require('../db/models/product')
+// const Order = require('../db/models/order')
 
 router.get('/', async (req, res, next) => {
   try {
-    const cartItems = await OrderDetails.findAll({
+    console.log('req.body.', req.body)
+    const cartItems = await Order.findOne({
       where: {
-        orderId: req.body.orderId
+        id: req.body.orderId
       },
-      include: [
-        {
-          model: Product,
-
-          through: {attributes: []}
-        }
-      ]
-      // where: {
-      //   orderId: req.body.orderId,
-      // },
-
-      // include: [
-      //   {
-      //     model: Order,
-      //     where: {
-      //       orderId: req.body.orderId,
-      //     },
-      //     include: {
-      //       model: Product,
-      //     },
-      //   },
-      // ],
+      include: Product
     })
 
     res.send(cartItems)
@@ -38,15 +18,6 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
-
-// router.get('/newOrder/:orderId', async (req, res, next) => {
-//   try {
-//     const newOrder = await Order.findByPk(req.params.orderId)
-//     res.json(newOrder)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 router.post('/newOrder', async (req, res, next) => {
   try {
