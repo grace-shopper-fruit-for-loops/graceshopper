@@ -6,11 +6,13 @@ const ADD_TO_CART = 'ADD_TO_CART'
 
 const CREATE_ORDER = 'CREATE_ORDER'
 
+// load products in shopping cart component
 const getShoppingCart = items => ({
   type: GET_SHOPPING_CART,
   items
 })
 
+// once user clicks add to cart -> post order to order details table
 const addToCart = id => ({
   type: ADD_TO_CART,
   id
@@ -48,9 +50,11 @@ export const fetchAddToCart = id => {
 }
 
 export const postNewOrder = userId => {
+  console.log('userID in thunk-->', userId)
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders/newOrder', userId)
+      const {data} = await axios.post(`/api/orders/newOrder`, {userId: userId})
+      console.log('DATA IN THUNK->', data)
       dispatch(createOrder(data))
     } catch (error) {
       console.log(error)
@@ -58,16 +62,19 @@ export const postNewOrder = userId => {
   }
 }
 
-const initalState = []
+const initalState = {
+  shoppingCart: [],
+  order: {}
+}
 
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
     case GET_SHOPPING_CART:
-      return action.items
+      return {...state, shoppingCart: action.items}
     case ADD_TO_CART:
       return [...state, action.id]
     case CREATE_ORDER:
-      return action.orderId
+      return {...state, order: action.userId}
     default:
       return state
   }

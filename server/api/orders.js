@@ -24,6 +24,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/newOrder/:orderId', async (req, res, next) => {
+  try {
+    const newOrder = await Order.findByPk(req.params.orderId)
+    res.json(newOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/newOrder', async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body)
