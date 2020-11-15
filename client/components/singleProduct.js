@@ -46,7 +46,12 @@ class SingleProduct extends React.Component {
             type="submit"
             className="btn btn-success"
             onClick={() => {
-              this.props.addToCart(product, orderId)
+              this.props.addToCart({
+                productId: product.id,
+                orderId: orderId,
+                quantity: product.quantity,
+                price: product.price
+              })
             }}
           >
             Add to Cart
