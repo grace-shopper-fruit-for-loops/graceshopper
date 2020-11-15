@@ -10,18 +10,21 @@ class Order extends React.Component {
   }
   componentDidMount() {
     try {
-      console.log('props inside component did mount', this.props.order.id)
-      this.props.loadTotalCart(this.props.match.params.orderId)
+      console.log('props inside component did mount', this.props)
+      this.props.loadTotalCart(this.props.order.id)
     } catch (error) {
       console.log(error)
     }
   }
 
   render() {
-    // console.log('props in shopping cart component--->', this.props)
+    console.log('props in shopping cart component--->', this.props)
     const cart = this.props.shoppingCart
-    console.log('props inside cart component->', this.props.shoppingCart)
-    console.log(cart.length, '<--cart length')
+    const filteredArr = cart.filter(el => el.orderId === this.props.order.id)
+    // console.log(this.props.shoppingCart[2].product, '-----')
+    // console.log('filtered array--->', filteredArr[0].product)
+    // console.log('props inside cart component->', this.props.shoppingCart)
+    // console.log(cart.length, '<--cart length')
     // console.log(cart., "<--cart length")
     return (
       <div>
@@ -35,11 +38,12 @@ class Order extends React.Component {
               <th>Total Price</th>
             </tr>
           </thead>
-          {cart ? (
+          {filteredArr ? (
             <tbody>
-              {cart.map(el => (
+              {filteredArr.map(el => (
                 <tr key={el.id}>
-                  <td>{el.product.name}</td>
+                  <td>name</td>
+                  {/* <td>{el.product.name}</td> */}
                   <td>{el.quantity}</td>
                   <td>${el.price}</td>
 
