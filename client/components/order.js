@@ -39,7 +39,7 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>{el.id}</td>
+                  <td>{el.product.name}</td>
                   <td>{el.quantity}</td>
                   <td>${el.price}</td>
 

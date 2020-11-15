@@ -75,7 +75,7 @@ const initalState = {
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
     case GET_SHOPPING_CART:
-      return {...state, shoppingCart: [...state.shoppingCart, action.items]}
+      return {...state, shoppingCart: action.items}
     case ADD_TO_CART:
       return {
         ...state,
