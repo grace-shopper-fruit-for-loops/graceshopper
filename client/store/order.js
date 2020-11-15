@@ -24,26 +24,26 @@ const createOrder = userId => ({
 })
 
 export const fetchCart = orderId => {
-  console.log('thunk!!!!')
+  console.log('orderId!!!!', orderId)
   return async dispatch => {
     try {
       console.log('before axios')
-      const {data} = await axios.get('/api/orders', orderId)
+      const {data} = await axios.get('/api/orders', {orderId: orderId})
       console.log('THUNK DATA->', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
-      console.log(error, 'error in the thunk')
+      console.log(error, 'error in the fetch cart thunk')
     }
   }
 }
 
 export const fetchAddToCart = productObj => {
-  console.log('product obj-->', productObj)
+  // console.log('product obj-->', productObj)
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/orders/orderDetails', productObj)
       dispatch(addToCart(data))
-      console.log('data --->', data)
+      // console.log('data --->', data)
     } catch (error) {
       console.log(error, 'error in THIS thunk')
     }
@@ -55,7 +55,7 @@ export const postNewOrder = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.post(`/api/orders/newOrder`, {userId: userId})
-      console.log('DATA IN THUNK->', data)
+      // console.log('DATA IN THUNK->', data)
       dispatch(createOrder(data))
     } catch (error) {
       console.log(error)
@@ -73,9 +73,9 @@ const initalState = {
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
     case GET_SHOPPING_CART:
-      return {...state, shoppingCart: action.items}
+      return {...state, shoppingCart: [...state.shoppingCart, action.items]}
     case ADD_TO_CART:
-      return {...state, shoppingCart: action.product}
+      return {...state, shoppingCart: [action.productObj]}
     case CREATE_ORDER:
       return {...state, order: action.userId}
     default:

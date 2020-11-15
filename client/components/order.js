@@ -2,6 +2,7 @@ import React from 'react'
 import {fetchCart, fetchAddToCart} from '../store/order'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import OrderConfirmation from './order-confirmation'
 
 class Order extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Order extends React.Component {
 
   render() {
     // console.log('props in shopping cart component--->', this.props)
-    const cart = this.props.shoppingCart.shoppingCart
+    const cart = this.props.shoppingCart
     console.log('CARTTTTT->', this.props)
     return (
       <div>
@@ -49,11 +50,19 @@ class Order extends React.Component {
               </tr>
             </tbody>
           ) : (
+            // <div>
             <h3>You do not have any items in your shopping cart</h3>
+            // </div>
           )}
         </table>
+
         <Link to="/orders/confirmed">
-          <button type="submit">Checkout</button>
+          <button
+            type="submit"
+            // onClick={<OrderConfirmation order={this.props.order.id} />}
+          >
+            Checkout
+          </button>
         </Link>
       </div>
     )
@@ -62,7 +71,7 @@ class Order extends React.Component {
 
 const mapState = state => {
   return {
-    shoppingCart: state.shoppingCart,
+    shoppingCart: state.shoppingCart.shoppingCart,
     order: state.shoppingCart.order
   }
 }

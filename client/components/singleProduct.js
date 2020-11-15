@@ -29,7 +29,7 @@ class SingleProduct extends React.Component {
   render() {
     const product = this.props.singleProduct
     const orderId = this.props.order.id
-    console.log('props in single product', this.props.order)
+    console.log('ORDERID in single product', this.props.order.id)
     return (
       <div>
         <div className="single-product-container">
