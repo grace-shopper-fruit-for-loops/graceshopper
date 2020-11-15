@@ -58,6 +58,7 @@ class AllProductstoRemove extends React.Component {
             />
           )}
         </div>
+
         <table className="table">
           <thead className="thead-light">
             <tr>
