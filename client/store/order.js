@@ -1,4 +1,5 @@
 import axios from 'axios'
+import order from '../components/order'
 
 const GET_SHOPPING_CART = 'GET_SHOPPING_CART'
 
@@ -23,14 +24,15 @@ const createOrder = userId => ({
   userId
 })
 
+////this thunk is not running correctly!
 export const fetchCart = orderId => {
-  console.log('orderId!!!!', orderId)
+  console.log('dispatched from component did mount!!!!', orderId)
   return async dispatch => {
     try {
-      console.log('before axios')
-      const {data} = await axios.get('/api/orders', {orderId: orderId})
-      console.log('THUNK DATA->', data)
-      dispatch(getShoppingCart(data))
+      console.log('before axios', orderId)
+      const {data: orderDetails} = await axios.get(`/api/orders/${orderId}`)
+      console.log('THUNK DATA->', orderDetails)
+      dispatch(getShoppingCart(orderDetails))
     } catch (error) {
       console.log(error, 'error in the fetch cart thunk')
     }
@@ -75,7 +77,10 @@ export default function shoppingCart(state = initalState, action) {
     case GET_SHOPPING_CART:
       return {...state, shoppingCart: [...state.shoppingCart, action.items]}
     case ADD_TO_CART:
-      return {...state, shoppingCart: [action.productObj]}
+      return {
+        ...state,
+        shoppingCart: [...state.shoppingCart, action.productObj]
+      }
     case CREATE_ORDER:
       return {...state, order: action.userId}
     default:

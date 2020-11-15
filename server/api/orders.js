@@ -1,18 +1,18 @@
 const router = require('express').Router()
 const {OrderDetails, Product, Order} = require('../db/models')
-// const Product = require('../db/models/product')
-// const Order = require('../db/models/order')
 
-router.get('/', async (req, res, next) => {
+router.get('/:orderId', async (req, res, next) => {
   try {
-    console.log('req. HERE--->', req.body)
-    const cartItems = await Order.findOne({
+    console.log(req.body, '<-------REQ BODY')
+    const shoppingCart = await OrderDetails.findAll({
       where: {
-        id: req.body.orderId
+        orderId: req.params.orderId
       },
-      include: Product
+      include: {
+        model: Product
+      }
     })
-    res.send(cartItems)
+    res.send(shoppingCart)
   } catch (error) {
     next(error)
   }
@@ -37,5 +37,6 @@ router.post('/orderDetails', async (req, res, next) => {
 })
 
 // router.put -> will update isFulfilled to true when user clicks checkout
+//           -> also need to empty the cart
 
 module.exports = router

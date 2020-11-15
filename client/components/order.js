@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchCart, fetchAddToCart} from '../store/order'
+import {fetchCart} from '../store/order'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import OrderConfirmation from './order-confirmation'
@@ -10,7 +10,8 @@ class Order extends React.Component {
   }
   componentDidMount() {
     try {
-      this.props.loadTotalCart(this.props.order.id)
+      console.log('props inside component did mount', this.props.order.id)
+      this.props.loadTotalCart(this.props.match.params.orderId)
     } catch (error) {
       console.log(error)
     }
@@ -19,7 +20,9 @@ class Order extends React.Component {
   render() {
     // console.log('props in shopping cart component--->', this.props)
     const cart = this.props.shoppingCart
-    console.log('CARTTTTT->', this.props)
+    console.log('props inside cart component->', this.props.shoppingCart)
+    console.log(cart.length, '<--cart length')
+    // console.log(cart., "<--cart length")
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -36,7 +39,7 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>{el.productId}</td>
+                  <td>{el.id}</td>
                   <td>{el.quantity}</td>
                   <td>${el.price}</td>
 
