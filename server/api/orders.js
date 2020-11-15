@@ -5,14 +5,13 @@ const {OrderDetails, Product, Order} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('req.body.', req.body)
+    console.log('req. HERE--->', req.body)
     const cartItems = await Order.findOne({
       where: {
         id: req.body.orderId
       },
       include: Product
     })
-
     res.send(cartItems)
   } catch (error) {
     next(error)
