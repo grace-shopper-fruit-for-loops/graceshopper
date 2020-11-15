@@ -28,7 +28,8 @@ class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.singleProduct
-    console.log('props in single product', this.props)
+    const orderId = this.props.order.id
+    console.log('props in single product', this.props.order)
     return (
       <div>
         <div className="single-product-container">
@@ -45,7 +46,7 @@ class SingleProduct extends React.Component {
             type="submit"
             className="btn btn-success"
             onClick={() => {
-              this.props.addToCart(product)
+              this.props.addToCart(product, orderId)
             }}
           >
             Add to Cart

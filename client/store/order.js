@@ -13,9 +13,9 @@ const getShoppingCart = items => ({
 })
 
 // once user clicks add to cart -> post order to order details table
-const addToCart = product => ({
+const addToCart = productObj => ({
   type: ADD_TO_CART,
-  product
+  productObj
 })
 
 const createOrder = userId => ({
@@ -23,12 +23,12 @@ const createOrder = userId => ({
   userId
 })
 
-export const fetchCart = () => {
+export const fetchCart = orderId => {
   console.log('thunk!!!!')
   return async dispatch => {
     try {
       console.log('before axios')
-      const {data} = await axios.get('/api/orders')
+      const {data} = await axios.get('/api/orders', orderId)
       console.log('THUNK DATA->', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
@@ -37,22 +37,18 @@ export const fetchCart = () => {
   }
 }
 
-export const fetchAddToCart = formData => {
+export const fetchAddToCart = productObj => {
+  console.log('product obj-->', productObj)
   return async dispatch => {
     try {
-      const {data} = await axios.post(
-        '/api/orders/orderDetails',
-        formData.product
-      )
+      const {data} = await axios.post('/api/orders/orderDetails', productObj)
       dispatch(addToCart(data))
-      // console.log('data --->', data)
+      console.log('data --->', data)
     } catch (error) {
       console.log(error, 'error in THIS thunk')
     }
   }
 }
-
-// export const addCampusThunk = (formData) => async (dispatch) => {  const { data: newCampus } = await axios.post(    "/api/campuses",    formData.campus  );  dispatch(addCampus(newCampus));};
 
 export const postNewOrder = userId => {
   console.log('userID in thunk-->', userId)

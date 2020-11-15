@@ -9,16 +9,16 @@ class Order extends React.Component {
   }
   componentDidMount() {
     try {
-      this.props.loadTotalCart()
+      this.props.loadTotalCart(this.props.order.id)
     } catch (error) {
       console.log(error)
     }
   }
 
   render() {
-    console.log('props in shopping cart component--->', this.props)
+    // console.log('props in shopping cart component--->', this.props)
     const cart = this.props.shoppingCart.shoppingCart
-    console.log('Cart->', cart)
+    console.log('CARTTTTT->', this.props)
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -31,25 +31,29 @@ class Order extends React.Component {
               <th>Total Price</th>
             </tr>
           </thead>
-          <tbody>
-            {cart.map(el => (
-              <tr key={el.id}>
-                <td>{el.productId}</td>
-                <td>{el.quantity}</td>
-                <td>${el.price}</td>
+          {cart ? (
+            <tbody>
+              {cart.map(el => (
+                <tr key={el.id}>
+                  <td>{el.productId}</td>
+                  <td>{el.quantity}</td>
+                  <td>${el.price}</td>
 
-                <td>${el.quantity * el.price}</td>
+                  <td>${el.quantity * el.price}</td>
+                </tr>
+              ))}
+              <tr>
+                <td colSpan="3.5" align="right">
+                  Subtotal
+                </td>
               </tr>
-            ))}
-            <tr>
-              <td colSpan="3.5" align="right">
-                Subtotal
-              </td>
-            </tr>
-          </tbody>
+            </tbody>
+          ) : (
+            <h3>You do not have any items in your shopping cart</h3>
+          )}
         </table>
         <Link to="/orders/confirmed">
-          <button>Checkout</button>
+          <button type="submit">Checkout</button>
         </Link>
       </div>
     )
@@ -58,13 +62,14 @@ class Order extends React.Component {
 
 const mapState = state => {
   return {
-    shoppingCart: state.shoppingCart
+    shoppingCart: state.shoppingCart,
+    order: state.shoppingCart.order
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    loadTotalCart: () => dispatch(fetchCart())
+    loadTotalCart: orderId => dispatch(fetchCart(orderId))
   }
 }
 
