@@ -41,7 +41,7 @@ class CreateProduct extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        <AllProductstoRemove />
+        {/* <AllProductstoRemove /> */}
       </div>
     )
   }

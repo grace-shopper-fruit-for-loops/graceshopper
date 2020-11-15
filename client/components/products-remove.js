@@ -1,8 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, deleteProductThunk} from '../store/products'
-
-import {postNewOrder} from '../store/order'
 import CreateProduct from '../components/create-product'
 
 class AllProductstoRemove extends React.Component {
@@ -18,11 +16,7 @@ class AllProductstoRemove extends React.Component {
   }
 
   componentDidMount() {
-    try {
-      this.props.fetchProducts()
-    } catch (error) {
-      console.log(error)
-    }
+    this.props.fetchProducts()
   }
 
   removeProduct(id) {
@@ -45,6 +39,7 @@ class AllProductstoRemove extends React.Component {
     return (
       <div>
         <div>
+          <h1>All products</h1>
           <button
             className="btn btn-primary"
             onClick={this.toggleCreateProduct}
@@ -108,12 +103,11 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    deleteProductThunk: id => dispatch(deleteProductThunk(id)),
-    postNewOrder: userId => dispatch(postNewOrder(userId))
+    deleteProductThunk: id => dispatch(deleteProductThunk(id))
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProductstoRemove)
+export default connect(mapState, mapDispatchToProps)(AllProductstoRemove)
