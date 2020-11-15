@@ -2,9 +2,6 @@ import React from 'react'
 const Home = () => {
   return (
     <div className="jumbotron text-center">
-      {/* <h4 className="card-title h4 pb-2">
-        <strong> Welcome to Juicery</strong>
-      </h4> */}
       <h2 className="card-title h2 text-primary">Welcome to Juicery</h2>
       <div className="view overlay my-4">
         <img
