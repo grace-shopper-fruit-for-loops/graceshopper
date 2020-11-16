@@ -9,6 +9,8 @@ class AllProducts extends React.Component {
     super(props)
   }
   componentDidMount() {
+    //CR NOTE: Not super necessary to place this within a try/catch block since fetchAllProducts thunk already has the AJAX requests
+    //within a try/catch block.
     try {
       this.props.fetchAllProducts()
       // this.props.getNewOrder(id)

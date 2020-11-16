@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+//CR NOTE: Definitely want to add some sort of middleware function to check if the user requesting this route is an admin.
+//Because only admins should be able to request this! :)
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({

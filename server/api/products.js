@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 
+// CR NOTE: Mix of async/await and .then syntax - must pick one and should go with async/await instead.
+
 // GET ALL PRODUCTS /api/products
 router.get('/', async (req, res, next) => {
   try {

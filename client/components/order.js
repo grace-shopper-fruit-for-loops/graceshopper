@@ -44,8 +44,9 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>[name]</td>
-                  {/* <td>{el.product.name}</td> */}
+                  <td />
+                  {/*<td>[name]</td>*/}
+                  {/*<td>{el.product.name}</td>*/}
                   <td>{el.quantity}</td>
                   <td>${el.price}</td>
 
@@ -101,6 +102,11 @@ const mapState = state => {
   return {
     shoppingCart: state.shoppingCart.shoppingCart,
     order: state.shoppingCart.order
+    //***** CR NOTE:
+    //can add the userId you want from the Redux state here! For example:
+    //userId: state.user.id
+    //then we can call fetchCart and pass userId to get the order!
+    //You can do this with any other component you think would need the userId as well... perhaps when you add to cart too ;)
   }
 }
 

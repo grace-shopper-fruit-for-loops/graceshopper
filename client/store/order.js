@@ -31,13 +31,19 @@ const deleteItem = id => ({
   id
 })
 
-////this thunk is not running correctly!
+////this thunk is not running correctly :/
+/* !!!!CR NOTE: 
+- Figure out how to get the userId to pass into the route. It already exists in your Redux state. (Note: I left a hint in one of your components)
+- Also you should add extra logic into your reducer that will check if the item added to the cart ALREADY exists in the cart
+So if I add an item to my cart, go back to the products page and add the same item to my cart again, it should not create a new item in my cart. 
+It should just increase the quantity of that item since it is already in my cart. 
+*/
 export const fetchCart = orderId => {
   console.log('dispatched from component did mount!!!!', orderId)
   return async dispatch => {
     try {
       console.log('before axios', orderId)
-      const {data} = await axios.get('/api/orders')
+      const {data} = await axios.get(`/api/orders`)
       console.log('THUNK DATA->', data)
       dispatch(getShoppingCart(data))
     } catch (error) {

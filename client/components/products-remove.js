@@ -17,6 +17,8 @@ class AllProductstoRemove extends React.Component {
     this.toggleCreateProduct = this.toggleCreateProduct.bind(this)
   }
 
+  //CR NOTE:
+  // - Not necessary for this.props.fetchproducts to be in try/catch block.
   componentDidMount() {
     try {
       this.props.fetchProducts()

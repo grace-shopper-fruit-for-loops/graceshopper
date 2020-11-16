@@ -15,6 +15,7 @@ const OrderDetails = require('./orderDetail')
 User.hasMany(Order)
 Order.belongsTo(User)
 
+//CR NOTE: Not necessary to add foreign keys to OrderDetails.
 OrderDetails.belongsTo(Order)
 OrderDetails.belongsTo(Product)
 

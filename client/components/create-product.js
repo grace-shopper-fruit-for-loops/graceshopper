@@ -25,6 +25,11 @@ class CreateProduct extends Component {
     })
   }
 
+  /*
+    CR NOTE: 
+    - You don't have to await this.props.addProductThunk because the addProductThunk is already an async function. 
+    - If you want to pre-populate this form for editing purposes you should have the local state reflect the product on the state. 
+  */
   async handleSubmit(evt) {
     evt.preventDefault()
     const product = this.state
