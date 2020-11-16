@@ -10,6 +10,8 @@ import Home from './components/home'
 import Order from './components/order'
 import OrderConfirmation from './components/order-confirmation'
 import AllProductstoRemove from './components/products-remove'
+import UpdateProduct from './components/product-update'
+
 import AdminHome from './components/admin'
 import ErrorPage from './components/ErrorPage'
 /**
@@ -35,6 +37,7 @@ class Routes extends Component {
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/orders/confirmed" component={OrderConfirmation} />
         <Route path="/createProduct" component={AllProductstoRemove} />
+        <Route path="/updateProduct/:productId" component={UpdateProduct} />
         {/* <Route path="*" component={ErrorPage} /> */}
 
         {isLoggedIn && (

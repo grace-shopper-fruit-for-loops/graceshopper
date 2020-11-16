@@ -40,4 +40,14 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next)
 })
 
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const updatedProduct = await Product.findByPk(req.params.productId)
+    await updatedProduct.update(req.body)
+    res.send(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router

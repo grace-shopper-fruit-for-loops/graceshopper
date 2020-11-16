@@ -3,11 +3,11 @@ import React from 'react'
 const FormProduct = props => (
   <form id="todo-form" onSubmit={props.handleSubmit}>
     <div className="form-group ">
-      <label htmlFor="productName">Name:</label>
+      <label htmlFor="name">Name:</label>
       <input
         className="form-control"
         name="name"
-        type="text"
+        // type="text"
         value={props.name}
         onChange={props.handleChange}
         required
@@ -15,11 +15,11 @@ const FormProduct = props => (
     </div>
 
     <div className="form-group ">
-      <label htmlFor="productDescription">Description:</label>
+      <label htmlFor="description">Description:</label>
       <input
         className="form-control"
         name="description"
-        type="text"
+        // type="text"
         value={props.description}
         onChange={props.handleChange}
         required
@@ -27,21 +27,21 @@ const FormProduct = props => (
     </div>
 
     <div className="form-group ">
-      <label htmlFor="productQuantity">Quantity:</label>
+      <label htmlFor="quantity">Quantity:</label>
       <input
         className="form-control"
         name="quantity"
-        type="text"
+        // type="text"
         value={props.quantity}
         onChange={props.handleChange}
       />
     </div>
     <div className="form-group ">
-      <label htmlFor="productPrice">Price:</label>
+      <label htmlFor="price">Price:</label>
       <input
         className="form-control"
         name="price"
-        type="text"
+        // type="text"
         value={props.price}
         onChange={props.handleChange}
       />
@@ -52,18 +52,18 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="imageUrl"
-        type="url"
+        // type="url"
         value={props.imageUrl}
         onChange={props.handleChange}
       />
     </div>
 
     <div className="form-group ">
-      <label htmlFor="productCategory">Category:</label>
+      <label htmlFor="category">Category:</label>
       <input
         className="form-control"
         name="category"
-        type="text"
+        // type="text"
         value={props.category}
         onChange={props.handleChange}
       />
