@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import FormProduct from '../components/form-product'
 import {connect} from 'react-redux'
-import {addProductThunk} from '../store/products'
-import AllProductstoRemove from '../components/products-remove'
+import {addProductThunk} from '../store/singleProduct'
 
 class CreateProduct extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       name: '',
       description: '',
@@ -41,7 +40,6 @@ class CreateProduct extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        <AllProductstoRemove />
       </div>
     )
   }

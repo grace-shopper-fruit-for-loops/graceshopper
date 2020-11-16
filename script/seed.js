@@ -32,7 +32,7 @@ async function seed() {
       email: 'jessicacotrina@gmail.com',
       phone: '605-124-1254',
       address: '765 Main St',
-      isAdmin: false,
+      isAdmin: true,
       password: 'caracoles'
     })
   ])

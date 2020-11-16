@@ -1,9 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts, deleteProductThunk} from '../store/products'
-
-import {postNewOrder} from '../store/order'
+import {fetchProducts} from '../store/products'
+import {deleteProductThunk, updateProductThunk} from '../store/singleProduct'
 import CreateProduct from '../components/create-product'
+
+import {Link} from 'react-router-dom'
 
 class AllProductstoRemove extends React.Component {
   constructor(props) {
@@ -12,17 +13,19 @@ class AllProductstoRemove extends React.Component {
       products: [],
       showCreateProduct: false
     }
-    this.removeProduct = this.removeProduct.bind(this)
     this.addProduct = this.addProduct.bind(this)
+    this.removeProduct = this.removeProduct.bind(this)
     this.toggleCreateProduct = this.toggleCreateProduct.bind(this)
+    this.updateProduct = this.updateProduct.bind(this)
+    this.getProduct = this.getProduct.bind(this)
   }
 
   componentDidMount() {
-    try {
-      this.props.fetchProducts()
-    } catch (error) {
-      console.log(error)
-    }
+    this.props.fetchProducts()
+  }
+
+  addProduct() {
+    this.props.fetchProducts()
   }
 
   removeProduct(id) {
@@ -30,9 +33,6 @@ class AllProductstoRemove extends React.Component {
     this.props.fetchProducts()
   }
 
-  addProduct() {
-    this.props.fetchProducts()
-  }
   toggleCreateProduct() {
     const showProductForm = !this.state.showCreateProduct
     this.setState({
@@ -40,11 +40,26 @@ class AllProductstoRemove extends React.Component {
       showCreateProduct: showProductForm
     })
   }
+  updateProduct(id) {
+    this.props.updateProductThunk(id)
+    this.props.fetchProducts()
+  }
+
+  getProduct() {
+    // this.props.fetchSingleProduct(this.props.match.params.orderId)
+    this.setState({
+      ...this.state,
+      showUpdateProduct: false
+    })
+  }
 
   render() {
+    console.log('PROPS', this.props)
     return (
       <div>
         <div>
+          <h1>All products</h1>
+          <br />
           <button
             className="btn btn-primary"
             onClick={this.toggleCreateProduct}
@@ -58,24 +73,24 @@ class AllProductstoRemove extends React.Component {
             />
           )}
         </div>
-
+        <br />
+        <br />
         <table className="table">
           <thead className="thead-light">
             <tr>
-              <th>Id</th>
               <th>Name</th>
               <th>Description</th>
               <th>Qty</th>
               <th>Price</th>
               <th>imageUrl</th>
               <th>Category</th>
-              <th>Delete</th>
+              <th />
+              <th />
             </tr>
           </thead>
           <tbody>
             {this.props.products.map(product => (
               <tr key={product.id}>
-                <td>{product.id}</td>
                 <td>{product.name}</td>
                 <td>{product.description}</td>
                 <td>${product.quantity}</td>
@@ -92,6 +107,11 @@ class AllProductstoRemove extends React.Component {
                     </button>
                   )}
                 </td>
+                <td>
+                  <Link to={`/updateProduct/${product.id}`}>
+                    <button className="btn btn-warning">Edit</button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -102,18 +122,19 @@ class AllProductstoRemove extends React.Component {
   }
 }
 
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     products: state.products
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
     deleteProductThunk: id => dispatch(deleteProductThunk(id)),
-    postNewOrder: userId => dispatch(postNewOrder(userId))
+    updateProductThunk: (id, product) =>
+      dispatch(updateProductThunk(id, product))
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProductstoRemove)
+export default connect(mapStateToProps, mapDispatchToProps)(AllProductstoRemove)

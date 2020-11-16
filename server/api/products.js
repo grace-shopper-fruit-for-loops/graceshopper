@@ -25,7 +25,8 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/', isAdmin, async (req, res, next) => {
+
+router.post('/', async (req, res, next) => {
   try {
     const data = {
       name: req.body.name,
@@ -40,6 +41,7 @@ router.post('/', isAdmin, async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+
 })
 
 router.put('/:productId', async (req, res, next) => {
@@ -50,6 +52,7 @@ router.put('/:productId', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+
 })
 
 router.delete('/:productId', isAdmin, (req, res, next) => {
@@ -60,6 +63,16 @@ router.delete('/:productId', isAdmin, (req, res, next) => {
   })
     .then(() => res.status(204).end())
     .catch(next)
+})
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const updatedProduct = await Product.findByPk(req.params.productId)
+    await updatedProduct.update(req.body)
+    res.send(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router
