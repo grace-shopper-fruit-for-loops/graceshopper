@@ -23,14 +23,6 @@ const OrderDetails = db.define('orderDetails', {
       min: 0
     }
   }
-  // ProductId: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  // },
-  // OrderId: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  // },
 })
 
 module.exports = OrderDetails
