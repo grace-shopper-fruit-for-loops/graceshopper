@@ -3,7 +3,7 @@ import React from 'react'
 const FormProduct = props => (
   <form id="todo-form" onSubmit={props.handleSubmit}>
     <div className="form-group ">
-      <label htmlFor="productName">Name:</label>
+      <label htmlFor="name">Name:</label>
       <input
         className="form-control"
         name="name"
@@ -15,7 +15,7 @@ const FormProduct = props => (
     </div>
 
     <div className="form-group ">
-      <label htmlFor="productDescription">Description:</label>
+      <label htmlFor="description">Description:</label>
       <input
         className="form-control"
         name="description"
@@ -27,21 +27,22 @@ const FormProduct = props => (
     </div>
 
     <div className="form-group ">
-      <label htmlFor="productQuantity">Quantity:</label>
+      <label htmlFor="quantity">Quantity:</label>
       <input
         className="form-control"
         name="quantity"
-        type="text"
+        type="number"
         value={props.quantity}
         onChange={props.handleChange}
       />
     </div>
     <div className="form-group ">
-      <label htmlFor="productPrice">Price:</label>
+      <label htmlFor="price">Price:</label>
       <input
         className="form-control"
         name="price"
-        type="text"
+        // type="number"
+
         value={props.price}
         onChange={props.handleChange}
       />
@@ -59,7 +60,7 @@ const FormProduct = props => (
     </div>
 
     <div className="form-group ">
-      <label htmlFor="productCategory">Category:</label>
+      <label htmlFor="category">Category:</label>
       <input
         className="form-control"
         name="category"
