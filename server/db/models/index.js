@@ -13,6 +13,11 @@ const OrderDetails = require('./orderDetail')
 
 ///////
 User.hasMany(Order)
+Order.belongsTo(User)
+
+OrderDetails.belongsTo(Order)
+OrderDetails.belongsTo(Product)
+
 Order.belongsToMany(Product, {
   through: OrderDetails,
   foreignKey: 'orderId'
