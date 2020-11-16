@@ -1,10 +1,13 @@
 import axios from 'axios'
+import order from '../components/order'
 
 const GET_SHOPPING_CART = 'GET_SHOPPING_CART'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 
 const CREATE_ORDER = 'CREATE_ORDER'
+
+const DELETE_ITEM = 'DELETE_ITEM'
 
 // load products in shopping cart component
 const getShoppingCart = items => ({
@@ -23,27 +26,34 @@ const createOrder = userId => ({
   userId
 })
 
+const deleteItem = id => ({
+  type: DELETE_ITEM,
+  id
+})
+
+////this thunk is not running correctly!
 export const fetchCart = orderId => {
-  console.log('thunk!!!!')
+  console.log('dispatched from component did mount!!!!', orderId)
   return async dispatch => {
     try {
-      console.log('before axios')
-      const {data} = await axios.get('/api/orders', orderId)
+      console.log('before axios', orderId)
+      const {data} = await axios.get('/api/orders')
       console.log('THUNK DATA->', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
-      console.log(error, 'error in the thunk')
+      console.log(error, 'error in the fetch cart thunk')
     }
   }
 }
 
 export const fetchAddToCart = productObj => {
-  console.log('product obj-->', productObj)
+  // console.log('product obj-->', productObj)
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/orders/orderDetails', productObj)
       dispatch(addToCart(data))
-      console.log('data --->', data)
+      alert('Item Added To Cart')
+      // console.log('data --->', data)
     } catch (error) {
       console.log(error, 'error in THIS thunk')
     }
@@ -55,8 +65,19 @@ export const postNewOrder = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.post(`/api/orders/newOrder`, {userId: userId})
-      console.log('DATA IN THUNK->', data)
+      // console.log('DATA IN THUNK->', data)
       dispatch(createOrder(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteItemFromCart = id => {
+  return async dispatch => {
+    try {
+      await axios.delete('/api/orders/orderDetails', id)
+      dispatch(deleteItem(id))
     } catch (error) {
       console.log(error)
     }
@@ -75,9 +96,14 @@ export default function shoppingCart(state = initalState, action) {
     case GET_SHOPPING_CART:
       return {...state, shoppingCart: action.items}
     case ADD_TO_CART:
-      return {...state, shoppingCart: action.product}
+      return {
+        ...state,
+        shoppingCart: [...state.shoppingCart, action.productObj]
+      }
     case CREATE_ORDER:
       return {...state, order: action.userId}
+    case DELETE_ITEM:
+      return {...state.shoppingCart.filter(cart => cart.id !== action.id)}
     default:
       return state
   }
