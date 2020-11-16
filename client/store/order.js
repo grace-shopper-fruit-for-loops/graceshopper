@@ -30,9 +30,9 @@ export const fetchCart = orderId => {
   return async dispatch => {
     try {
       console.log('before axios', orderId)
-      const {data: orderDetails} = await axios.get('/api/orders/')
-      console.log('THUNK DATA->', orderDetails)
-      dispatch(getShoppingCart(orderDetails))
+      const {data} = await axios.get('/api/orders')
+      console.log('THUNK DATA->', data)
+      dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error, 'error in the fetch cart thunk')
     }

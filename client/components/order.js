@@ -20,7 +20,7 @@ class Order extends React.Component {
   render() {
     console.log('props in shopping cart component--->', this.props)
     const cart = this.props.shoppingCart
-    const filteredArr = cart.filter(el => el.orderId === this.props.order.id)
+    // const filteredArr = cart.filter((el) => el.orderId === this.props.order.id)
     // console.log(this.props.shoppingCart[2].product, '-----')
     // console.log('filtered array--->', filteredArr[0].product)
     // console.log('props inside cart component->', this.props.shoppingCart)
@@ -38,9 +38,9 @@ class Order extends React.Component {
               <th>Total Price</th>
             </tr>
           </thead>
-          {filteredArr ? (
+          {cart ? (
             <tbody>
-              {filteredArr.map(el => (
+              {cart.map(el => (
                 <tr key={el.id}>
                   <td>name</td>
                   {/* <td>{el.product.name}</td> */}

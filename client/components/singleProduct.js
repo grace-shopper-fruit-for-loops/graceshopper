@@ -10,7 +10,10 @@ import {postNewOrder} from '../store/order'
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
-    // this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      quantity: '1'
+    }
+    this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
   componentDidMount() {
@@ -21,12 +24,12 @@ class SingleProduct extends React.Component {
     }
   }
 
-  // handleClick = (product) => {
-  //   console.log('order->', this.props)
-  //   this.props.addToCart(product.id)
-  // }
+  handleSelectChange(evt) {
+    this.setState({quantity: evt.target.value})
+  }
 
   render() {
+    const {quantity} = this.state
     const product = this.props.singleProduct
     const orderId = this.props.order.id
     console.log('ORDERID in single product', this.props.order.id)
@@ -40,7 +43,18 @@ class SingleProduct extends React.Component {
           <h5>Price: ${product.price}</h5>
           <p>Details: {product.description}</p>
           <div>
-            Quantity: <input />
+            Quantity:
+            <select
+              onChange={this.handleSelectChange}
+              value={quantity}
+              name="quantity"
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
           </div>
           <button
             type="submit"
@@ -49,7 +63,7 @@ class SingleProduct extends React.Component {
               this.props.addToCart({
                 productId: product.id,
                 orderId: orderId,
-                quantity: product.quantity,
+                quantity: this.state.quantity,
                 price: product.price
               })
             }}

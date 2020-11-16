@@ -5,11 +5,14 @@ router.get('/', async (req, res, next) => {
   try {
     console.log(req.body, '<-------REQ BODY')
     const shoppingCart = await OrderDetails.findAll({
-      include: [
-        {
-          model: Product
-        }
-      ]
+      where: {
+        orderId: req.body.orderId
+      }
+      // include: [
+      //   {
+      //     model: Product
+      //   }
+      // ]
     })
     res.send(shoppingCart)
   } catch (error) {
