@@ -24,10 +24,25 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
-  Product.create(req.body)
-    .then(product => res.json(product))
-    .catch(next)
+router.post('/', async (req, res, next) => {
+  try {
+    const data = {
+      name: req.body.name,
+      description: req.body.description,
+      quantity: req.body.quantity,
+      price: req.body.price,
+      imageUrl: req.body.imageUrl,
+      category: req.body.category
+    }
+    const newProduct = await Product.create(data)
+    res.send(newProduct)
+  } catch (error) {
+    next(error)
+  }
+  // const {name: req.body.name, }
+  // Product.create(req.body)
+  //   .then(product => res.json(product))
+  //   .catch(next)
 })
 
 router.delete('/:productId', (req, res, next) => {
