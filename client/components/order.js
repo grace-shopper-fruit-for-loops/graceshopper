@@ -40,7 +40,7 @@ class Order extends React.Component {
               <th> </th>
             </tr>
           </thead>
-          {cart ? (
+          {cart.length ? (
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
