@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const {isAdmin} = require('../api/helper')
 
 // GET ALL PRODUCTS /api/products
 router.get('/', async (req, res, next) => {
@@ -24,6 +25,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+
 router.post('/', async (req, res, next) => {
   try {
     const data = {
@@ -39,13 +41,21 @@ router.post('/', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-  // const {name: req.body.name, }
-  // Product.create(req.body)
-  //   .then(product => res.json(product))
-  //   .catch(next)
+
 })
 
-router.delete('/:productId', (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const updatedProduct = await Product.findByPk(req.params.productId)
+    await updatedProduct.update(req.body)
+    res.send(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+router.delete('/:productId', isAdmin, (req, res, next) => {
   Product.destroy({
     where: {
       id: req.params.productId

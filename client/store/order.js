@@ -1,5 +1,6 @@
 import axios from 'axios'
-import order from '../components/order'
+
+const GET_ORDER = 'GET_ORDER'
 
 const GET_SHOPPING_CART = 'GET_SHOPPING_CART'
 
@@ -8,6 +9,12 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const CREATE_ORDER = 'CREATE_ORDER'
 
 const DELETE_ITEM = 'DELETE_ITEM'
+
+// retrieve order info for user
+const getOrder = order => ({
+  type: GET_ORDER,
+  order
+})
 
 // load products in shopping cart component
 const getShoppingCart = items => ({
@@ -31,13 +38,22 @@ const deleteItem = id => ({
   id
 })
 
+// export const fetchOrder = () => {
+//   return async (dispatch) => {
+//     //get user info
+//     const {data: userId} = await axios.get('/auth/me')
+//     const {data: orderId} = await axios.get(`/api/orders/${userId}`)
+//     dispatch(getOrder(orderId))
+//   }
+// }
+
 ////this thunk is not running correctly!
-export const fetchCart = orderId => {
-  console.log('dispatched from component did mount!!!!', orderId)
+export const fetchCart = userId => {
+  console.log('from component did mount!!!!', userId)
   return async dispatch => {
     try {
-      console.log('before axios', orderId)
-      const {data} = await axios.get('/api/orders')
+      console.log('before axios', userId)
+      const {data} = await axios.get(`/api/orders/${userId}`)
       console.log('THUNK DATA->', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
@@ -47,10 +63,10 @@ export const fetchCart = orderId => {
 }
 
 export const fetchAddToCart = productObj => {
-  // console.log('product obj-->', productObj)
+  console.log('product obj-->', productObj)
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders/orderDetails', productObj)
+      const {data} = await axios.post('/api/orders', productObj)
       dispatch(addToCart(data))
       alert('Item Added To Cart')
       // console.log('data --->', data)

@@ -1,18 +1,29 @@
 const router = require('express').Router()
-const {OrderDetails, Product, Order} = require('../db/models')
+const Order = require('../db/models/order')
+const Product = require('../db/models/product')
+const OrderDetails = require('../db/models/orderDetail')
+const {isAdmin} = require('../api/helper')
 
-router.get('/', async (req, res, next) => {
+// passing the userId in req.params
+router.get('/:userId', async (req, res, next) => {
+  console.log('REQ PARAMS-->', req.params.userId)
   try {
-    console.log(req.body, '<-------REQ BODY')
+    const orderId = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isFulfilled: 'FALSE'
+      }
+    })
+    console.log('ORDER ID', orderId)
     const shoppingCart = await OrderDetails.findAll({
       where: {
-        orderId: req.body.orderId
-      }
-      // include: [
-      //   {
-      //     model: Product
-      //   }
-      // ]
+        orderId: orderId.id
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
     })
     res.send(shoppingCart)
   } catch (error) {
@@ -20,16 +31,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/newOrder', async (req, res, next) => {
-  try {
-    const newOrder = await Order.create(req.body)
-    res.send(newOrder)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/', isAdmin, async (req, res, next) => {
+//   try {
+//     const newOrder = await Order.create(req.body)
+//     res.send(newOrder)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
-router.post('/orderDetails', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
+  console.log('REQ BODY IN ORDER', req.body)
   try {
     const newPost = await OrderDetails.create(req.body)
     res.send(newPost)
@@ -38,7 +50,7 @@ router.post('/orderDetails', async (req, res, next) => {
   }
 })
 
-router.delete('/orderDetails', async (req, res, next) => {
+router.delete('/', isAdmin, async (req, res, next) => {
   try {
     await OrderDetails.destroy({
       where: {
