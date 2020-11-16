@@ -7,7 +7,7 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="name"
-        // type="text"
+        type="text"
         value={props.name}
         onChange={props.handleChange}
         required
@@ -19,7 +19,7 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="description"
-        // type="text"
+        type="text"
         value={props.description}
         onChange={props.handleChange}
         required
@@ -31,7 +31,7 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="quantity"
-        // type="text"
+        type="number"
         value={props.quantity}
         onChange={props.handleChange}
       />
@@ -41,7 +41,8 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="price"
-        // type="text"
+        // type="number"
+
         value={props.price}
         onChange={props.handleChange}
       />
@@ -52,7 +53,7 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="imageUrl"
-        // type="url"
+        type="url"
         value={props.imageUrl}
         onChange={props.handleChange}
       />
@@ -63,7 +64,7 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="category"
-        // type="text"
+        type="text"
         value={props.category}
         onChange={props.handleChange}
       />

@@ -59,6 +59,7 @@ class AllProductstoRemove extends React.Component {
       <div>
         <div>
           <h1>All products</h1>
+          <br />
           <button
             className="btn btn-primary"
             onClick={this.toggleCreateProduct}
@@ -72,7 +73,8 @@ class AllProductstoRemove extends React.Component {
             />
           )}
         </div>
-
+        <br />
+        <br />
         <table className="table">
           <thead className="thead-light">
             <tr>
