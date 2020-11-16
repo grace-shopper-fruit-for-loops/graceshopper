@@ -1,10 +1,11 @@
 const router = require('express').Router()
-const {OrderDetails, Product} = require('../db/models')
 const Order = require('../db/models/order')
+const Product = require('../db/models/product')
+const OrderDetails = require('../db/models/orderDetail')
 const {isAdmin} = require('../api/helper')
 
 // passing the userId in req.params
-router.get('/:userId', isAdmin, async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   console.log('REQ PARAMS-->', req.params.userId)
   try {
     const orderId = await Order.findOne({

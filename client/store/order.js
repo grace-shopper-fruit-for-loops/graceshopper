@@ -49,7 +49,7 @@ const deleteItem = id => ({
 
 ////this thunk is not running correctly!
 export const fetchCart = userId => {
-  console.log('dispatched from component did mount!!!!', userId)
+  console.log('from component did mount!!!!', userId)
   return async dispatch => {
     try {
       console.log('before axios', userId)

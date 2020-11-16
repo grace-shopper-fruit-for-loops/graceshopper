@@ -9,24 +9,16 @@ class Order extends React.Component {
     super(props)
   }
   componentDidMount() {
-    try {
-      console.log('props inside component did mount', this.props)
-      // this.props.getOrder()
-      this.props.loadTotalCart(this.props.userId)
-    } catch (error) {
-      console.log(error)
-    }
+    console.log('props inside component did mount', this.props)
+    // this.props.getOrder()
+    this.props.loadTotalCart(this.props.userId.id)
   }
 
   render() {
     console.log('props in shopping cart component--->', this.props)
     const cart = this.props.shoppingCart
-    // const filteredArr = cart.filter((el) => el.orderId === this.props.order.id)
-    // console.log(this.props.shoppingCart[2].product, '-----')
-    // console.log('filtered array--->', filteredArr[0].product)
-    // console.log('props inside cart component->', this.props.shoppingCart)
-    // console.log(cart.length, '<--cart length')
-    // console.log(cart., "<--cart length")
+    const userId = this.props.userId.id
+    console.log(this.props.userId.id, 'USER ID OBJ')
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -101,14 +93,13 @@ class Order extends React.Component {
 const mapState = state => {
   return {
     shoppingCart: state.shoppingCart.shoppingCart,
-    order: state.shoppingCart.order,
-    userId: state.user.id
+    order: state.user.order,
+    userId: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    // getOrder: () => dispatch(fetchOrder()),
     loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: productId => dispatch(deleteItem(productId))
   }
