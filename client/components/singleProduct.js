@@ -31,8 +31,9 @@ class SingleProduct extends React.Component {
   render() {
     const {quantity} = this.state
     const product = this.props.singleProduct
-    const orderId = this.props.order.id
-    console.log('ORDERID in single product', this.props.order.id)
+    const users = this.props.user
+    const orderId = ((users || {}).order || {}).id
+
     return (
       <div>
         <div className="single-product-container">
@@ -80,7 +81,7 @@ const mapState = state => {
   return {
     singleProduct: state.singleProduct,
     user: state.user,
-    order: state.shoppingCart.order
+    order: state.user
   }
 }
 
