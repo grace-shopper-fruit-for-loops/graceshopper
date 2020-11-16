@@ -2,7 +2,7 @@ import React from 'react'
 import {fetchCart} from '../store/order'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import OrderConfirmation from './order-confirmation'
+import {deleteItem} from '../store/order'
 
 class Order extends React.Component {
   constructor(props) {
@@ -36,18 +36,38 @@ class Order extends React.Component {
               <th>Qty</th>
               <th>Price</th>
               <th>Total Price</th>
+              <th> </th>
+              <th> </th>
             </tr>
           </thead>
           {cart ? (
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>name</td>
+                  <td>[name]</td>
                   {/* <td>{el.product.name}</td> */}
                   <td>{el.quantity}</td>
                   <td>${el.price}</td>
 
                   <td>${el.quantity * el.price}</td>
+                  <td>
+                    <button className="btn btn-success" type="submit">
+                      Edit
+                    </button>
+                  </td>
+
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      type="submit"
+                      // onClick={deleteItem({
+                      //   productId: el.productId,
+                      //   orderId: el.orderId,
+                      // })}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
               <tr>
@@ -66,6 +86,7 @@ class Order extends React.Component {
         <Link to="/orders/confirmed">
           <button
             type="submit"
+            className="btn btn-success"
             // onClick={<OrderConfirmation order={this.props.order.id} />}
           >
             Checkout
@@ -85,7 +106,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadTotalCart: orderId => dispatch(fetchCart(orderId))
+    loadTotalCart: orderId => dispatch(fetchCart(orderId)),
+    deleteItem: productId => dispatch(deleteItem(productId))
   }
 }
 

@@ -38,6 +38,20 @@ router.post('/orderDetails', async (req, res, next) => {
   }
 })
 
+router.delete('/orderDetails', async (req, res, next) => {
+  try {
+    await OrderDetails.destroy({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // router.put -> will update isFulfilled to true when user clicks checkout
 //           -> also need to empty the cart
 
