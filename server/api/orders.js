@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const {OrderDetails, Product} = require('../db/models')
 const Order = require('../db/models/order')
+const {isAdmin} = require('../api/helper')
 
 // passing the userId in req.params
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isAdmin, async (req, res, next) => {
   console.log('REQ PARAMS-->', req.params.userId)
   try {
     const orderId = await Order.findOne({
@@ -29,7 +30,7 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body)
     res.send(newOrder)
@@ -38,7 +39,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const newPost = await OrderDetails.create(req.body)
     res.send(newPost)
@@ -47,7 +48,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', async (req, res, next) => {
+router.delete('/', isAdmin, async (req, res, next) => {
   try {
     await OrderDetails.destroy({
       where: {

@@ -169,11 +169,11 @@ async function seed() {
       userId: 1
     }),
     Order.create({
-      isFulfilled: false,
+      isFulfilled: true,
       userId: 2
     }),
     Order.create({
-      isFulfilled: false,
+      isFulfilled: true,
       userId: 2
     }),
     Order.create({

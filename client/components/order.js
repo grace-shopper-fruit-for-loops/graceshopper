@@ -1,8 +1,8 @@
 import React from 'react'
-import {fetchCart} from '../store/order'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteItem} from '../store/order'
+import {deleteItem, fetchOrder, fetchCart} from '../store/order'
+import {me} from '../store/user'
 
 class Order extends React.Component {
   constructor(props) {
@@ -11,7 +11,8 @@ class Order extends React.Component {
   componentDidMount() {
     try {
       console.log('props inside component did mount', this.props)
-      this.props.loadTotalCart(this.props.order.id)
+      // this.props.getOrder()
+      this.props.loadTotalCart(this.props.userId)
     } catch (error) {
       console.log(error)
     }
@@ -100,13 +101,15 @@ class Order extends React.Component {
 const mapState = state => {
   return {
     shoppingCart: state.shoppingCart.shoppingCart,
-    order: state.shoppingCart.order
+    order: state.shoppingCart.order,
+    userId: state.user.id
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    loadTotalCart: orderId => dispatch(fetchCart(orderId)),
+    // getOrder: () => dispatch(fetchOrder()),
+    loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: productId => dispatch(deleteItem(productId))
   }
 }
