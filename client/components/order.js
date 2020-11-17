@@ -1,24 +1,27 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteItem, fetchOrder, fetchCart} from '../store/order'
+import {deleteItemFromCart, fetchCart, submitOrderPut} from '../store/order'
 import {me} from '../store/user'
 
 class Order extends React.Component {
   constructor(props) {
     super(props)
+    // this.state = {
+    //   quantity: this.props.shoppingCart.shoppingCart.quantity,
+    // }
   }
-  componentDidMount() {
-    console.log('props inside component did mount', this.props)
-    // this.props.getOrder()
-    this.props.loadTotalCart(this.props.userId.id)
+  async componentDidMount() {
+    // console.log('props inside component did mount', this.props)
+    await this.props.loadTotalCart(this.props.userId.id)
   }
 
   render() {
     console.log('props in shopping cart component--->', this.props)
-    const cart = this.props.shoppingCart
+    const cart = this.props.shoppingCart || []
     const userId = this.props.userId.id
-    console.log(this.props.userId.id, 'USER ID OBJ')
+    const quantity = this.props
+    const order = this.props.order
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -39,24 +42,24 @@ class Order extends React.Component {
                 <tr key={el.id}>
                   <td>[name]</td>
                   {/* <td>{el.product.name}</td> */}
-                  <td>{el.quantity}</td>
+                  <td>
+                    {/* <select
+                      onChange={this.handleSelectChange}
+                      value={quantity}
+                      name="quantity"
+                    > */}
+                    {el.quantity}
+                    {/* </select> */}
+                  </td>
                   <td>${el.price}</td>
 
                   <td>${el.quantity * el.price}</td>
-                  <td>
-                    <button className="btn btn-success" type="submit">
-                      Edit
-                    </button>
-                  </td>
 
                   <td>
                     <button
                       className="btn btn-success"
                       type="submit"
-                      // onClick={deleteItem({
-                      //   productId: el.productId,
-                      //   orderId: el.orderId,
-                      // })}
+                      onClick={() => this.props.deleteItem(el.id)}
                     >
                       Delete
                     </button>
@@ -79,8 +82,10 @@ class Order extends React.Component {
         <Link to="/orders/confirmed">
           <button
             type="submit"
+            onClick={() =>
+              submitOrderPut(this.props.user.order.id, {isFulfilled: true})
+            }
             className="btn btn-success"
-            // onClick={<OrderConfirmation order={this.props.order.id} />}
           >
             Checkout
           </button>
@@ -93,15 +98,16 @@ class Order extends React.Component {
 const mapState = state => {
   return {
     shoppingCart: state.shoppingCart.shoppingCart,
-    order: state.user.order,
+    ORDER: state.shoppingCart.order,
     userId: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    loadTotalCart: userId => dispatch(fetchCart(userId))
-    // deleteItem: productId => dispatch(deleteItem(productId))
+    loadTotalCart: userId => dispatch(fetchCart(userId)),
+    deleteItem: id => dispatch(deleteItemFromCart(id)),
+    submitOrderPut: order => dispatch(submitOrderPut(order))
   }
 }
 
