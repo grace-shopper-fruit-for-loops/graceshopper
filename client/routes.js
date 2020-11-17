@@ -32,7 +32,11 @@ class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/" component={Home} />
         <Route exact path="/admin" component={AdminHome} />
-        <Route exact path="/orders" component={Order} />
+        <Route
+          exact
+          path="/orders"
+          render={props => <Order {...props} isAuthed={true} />}
+        />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/orders/confirmed" component={OrderConfirmation} />

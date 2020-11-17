@@ -14,7 +14,7 @@ class Order extends React.Component {
   async componentDidMount() {
     // console.log('props inside component did mount', this.props)
     await this.props.loadTotalCart(this.props.userId.id)
-    await this.props.loadOrderInfo()
+    // await this.props.loadOrderInfo()
   }
 
   render() {
@@ -41,8 +41,8 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  {/* <td>[name]</td> */}
-                  <td>{el.product.name}</td>
+                  <td>[name]</td>
+                  {/* <td>{el.product.name}</td> */}
                   <td>
                     {/* <select
                       onChange={this.handleSelectChange}
@@ -60,7 +60,7 @@ class Order extends React.Component {
                     <button
                       className="btn btn-success"
                       type="submit"
-                      onClick={() => deleteItemFromCart(el.id)}
+                      onClick={() => this.props.deleteItem(el.id)}
                     >
                       Delete
                     </button>
@@ -108,8 +108,8 @@ const mapDispatch = dispatch => {
   return {
     loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: id => dispatch(deleteItemFromCart(id)),
-    submitOrderPut: order => dispatch(submitOrderPut(order)),
-    loadOrderInfo: () => dispatch(me())
+    submitOrderPut: order => dispatch(submitOrderPut(order))
+    // loadOrderInfo: () => dispatch(me())
   }
 }
 

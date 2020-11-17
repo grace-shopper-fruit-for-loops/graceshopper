@@ -117,13 +117,18 @@ export default function shoppingCart(state = initalState, action) {
         shoppingCart: [...state.shoppingCart, action.productObj]
       }
     case DELETE_ITEM:
-      // return {...state.shoppingCart.filter((cart) => cart.id !== action.id)}
       return {
         ...state,
         shoppingCart: [
-          ...state.filter(cart => cart.id !== action.orderDetailsId)
+          ...state.shoppingCart.filter(cart => cart.id !== action.id)
         ]
       }
+    // return {
+    //   ...state,
+    //   shoppingCart: [
+    //     ...state.filter(cart => cart.id !== action.orderDetailsId)
+    //   ]
+    // }
     // return action.orderDetailsId
     case SUBMIT_ORDER:
       return state
