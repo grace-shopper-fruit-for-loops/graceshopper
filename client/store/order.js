@@ -69,30 +69,18 @@ export const fetchAddToCart = productObj => {
       const {data} = await axios.post('/api/orders', productObj)
       dispatch(addToCart(data))
       alert('Item Added To Cart')
-      // console.log('data --->', data)
     } catch (error) {
       console.log(error, 'error in THIS thunk')
     }
   }
 }
 
-export const postNewOrder = userId => {
-  console.log('userID in thunk-->', userId)
-  return async dispatch => {
-    try {
-      const {data} = await axios.post(`/api/orders/newOrder`, {userId: userId})
-      // console.log('DATA IN THUNK->', data)
-      dispatch(createOrder(data))
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
 export const deleteItemFromCart = id => {
+  console.log('made it here', id)
   return async dispatch => {
     try {
-      await axios.delete('/api/orders/orderDetails', id)
+      await axios.delete(`/api/orders/${id}`)
+      console.log('also made it here')
       dispatch(deleteItem(id))
     } catch (error) {
       console.log(error)
@@ -101,11 +89,8 @@ export const deleteItemFromCart = id => {
 }
 
 const initalState = {
-  shoppingCart: [],
-  order: {}
+  shoppingCart: []
 }
-
-// shoppingCart: {orders:{}, products: []}
 
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
@@ -116,10 +101,12 @@ export default function shoppingCart(state = initalState, action) {
         ...state,
         shoppingCart: [...state.shoppingCart, action.productObj]
       }
-    case CREATE_ORDER:
-      return {...state, order: action.userId}
     case DELETE_ITEM:
-      return {...state.shoppingCart.filter(cart => cart.id !== action.id)}
+      // return {...state.shoppingCart.filter((cart) => cart.id !== action.id)}
+      return {
+        ...state,
+        shoppingCart: [...state.filter(cart => cart.id !== action.id)]
+      }
     default:
       return state
   }

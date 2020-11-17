@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteItem, fetchOrder, fetchCart} from '../store/order'
+import {deleteItemFromCart, fetchCart} from '../store/order'
 import {me} from '../store/user'
 
 class Order extends React.Component {
@@ -15,10 +15,10 @@ class Order extends React.Component {
   }
 
   render() {
-    console.log('props in shopping cart component--->', this.props)
-    const cart = this.props.shoppingCart
+    console.log('props in shopping cart component--->', this.props.shoppingCart)
+    const cart = this.props.shoppingCart || []
     const userId = this.props.userId.id
-    console.log(this.props.userId.id, 'USER ID OBJ')
+    console.log(this.props, 'USER ID OBJ')
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -37,26 +37,26 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>[name]</td>
-                  {/* <td>{el.product.name}</td> */}
-                  <td>{el.quantity}</td>
+                  {/* <td>[name]</td> */}
+                  <td>{el.product.name}</td>
+                  <td>
+                    <button className="btn btn-success" type="submit">
+                      -
+                    </button>
+                    {el.quantity}
+                    <button className="btn btn-success" type="submit">
+                      +
+                    </button>
+                  </td>
                   <td>${el.price}</td>
 
                   <td>${el.quantity * el.price}</td>
-                  <td>
-                    <button className="btn btn-success" type="submit">
-                      Edit
-                    </button>
-                  </td>
 
                   <td>
                     <button
                       className="btn btn-success"
                       type="submit"
-                      // onClick={deleteItem({
-                      //   productId: el.productId,
-                      //   orderId: el.orderId,
-                      // })}
+                      onClick={() => deleteItemFromCart(el.id)}
                     >
                       Delete
                     </button>
@@ -101,7 +101,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadTotalCart: userId => dispatch(fetchCart(userId)),
-    deleteItem: productId => dispatch(deleteItem(productId))
+    deleteItem: id => dispatch(deleteItemFromCart(id))
   }
 }
 
