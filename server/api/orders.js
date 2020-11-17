@@ -6,7 +6,7 @@ const {isAdmin} = require('../api/helper')
 
 // passing the userId in req.params
 router.get('/:userId', async (req, res, next) => {
-  console.log('REQ PARAMS-->', req.params.userId)
+  console.log('REQ PARAMS inside get request-->', req.params.userId)
   try {
     const orderId = await Order.findOne({
       where: {
@@ -14,7 +14,7 @@ router.get('/:userId', async (req, res, next) => {
         isFulfilled: 'FALSE'
       }
     })
-    console.log('ORDER ID', orderId)
+    console.log('ORDER ID inside get request', orderId)
     const shoppingCart = await OrderDetails.findAll({
       where: {
         orderId: orderId.id
@@ -31,16 +31,9 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// router.post('/', isAdmin, async (req, res, next) => {
-//   try {
-//     const newOrder = await Order.create(req.body)
-//     res.send(newOrder)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
+// create a new product in the shopping cart
 router.post('/', async (req, res, next) => {
+  console.log('INSIDE OF ROUTE<<<<')
   console.log('REQ BODY IN ORDER', req.body)
   try {
     const newPost = await OrderDetails.create(req.body)
@@ -50,12 +43,15 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', isAdmin, async (req, res, next) => {
+// delete an item in the cart
+router.delete('/:id', async (req, res, next) => {
+  console.log('REQ PARAMS-->', req.params)
   try {
+    // let orderId = await OrderDetails.findByPk(req.params.id)
+    console.log('made it inside destroy request')
     await OrderDetails.destroy({
       where: {
-        productId: req.body.productId,
-        orderId: req.body.orderId
+        id: req.params.id
       }
     })
     res.sendStatus(204)
