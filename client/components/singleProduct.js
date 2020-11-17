@@ -15,11 +15,8 @@ class SingleProduct extends React.Component {
   }
 
   componentDidMount() {
-    console.log('inside cdm')
     this.props.loadSingleProduct(this.props.match.params.id)
-    console.log('middle')
     this.props.loadOrderInfo()
-    console.log('end')
   }
 
   handleSelectChange(evt) {
@@ -81,7 +78,7 @@ const mapState = state => {
   return {
     singleProduct: state.singleProduct,
     user: state.user,
-    order: state.user
+    ORDER: state.shoppingCart.order.data
   }
 }
 

@@ -98,7 +98,7 @@ class Order extends React.Component {
 const mapState = state => {
   return {
     shoppingCart: state.shoppingCart.shoppingCart,
-    order: state.user.order,
+    ORDER: state.shoppingCart.order,
     userId: state.user
   }
 }

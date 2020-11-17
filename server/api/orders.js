@@ -58,12 +58,15 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post('/newOrder', async (req, res, next) => {
   try {
+    console.log('REQ USER', req.user)
     const newOrder = await Order.findOrCreate({
       where: {
         userId: req.user.dataValues.id,
         isFulfilled: false
       }
     })
+
+    console.log('new order', newOrder[0])
     res.send(newOrder)
   } catch (error) {
     next(error)
