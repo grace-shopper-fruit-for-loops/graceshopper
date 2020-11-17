@@ -57,7 +57,15 @@ router.delete('/:productId', (req, res, next) => {
 router.put('/:productId', async (req, res, next) => {
   try {
     const updatedProduct = await Product.findByPk(req.params.productId)
-    await updatedProduct.update(req.body)
+    const data = {
+      name: req.body.name,
+      description: req.body.description,
+      quantity: req.body.quantity,
+      price: req.body.price,
+      imageUrl: req.body.imageUrl,
+      category: req.body.category
+    }
+    await updatedProduct.update(data)
     res.send(updatedProduct)
   } catch (error) {
     next(error)

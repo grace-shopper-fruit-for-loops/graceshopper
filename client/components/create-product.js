@@ -12,7 +12,7 @@ class CreateProduct extends Component {
       quantity: '',
       price: '',
       imageUrl: '',
-      category: ''
+      category: 'Juice'
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
