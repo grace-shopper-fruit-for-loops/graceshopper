@@ -41,20 +41,6 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// router.get('/users/:userId', async (req, res, next) => {
-//   try {
-//     const newOrder = await Order.findOrCreate({
-//       where: {
-//         userId: req.params.userId,
-//         isFulfilled: false,
-//       },
-//     })
-//     console.log('NEW ORDER', newOrder)
-//     res.send(newOrder)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 router.post('/newOrder', async (req, res, next) => {
   try {
