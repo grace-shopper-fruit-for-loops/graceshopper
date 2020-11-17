@@ -14,7 +14,6 @@ class Order extends React.Component {
   async componentDidMount() {
     // console.log('props inside component did mount', this.props)
     await this.props.loadTotalCart(this.props.userId.id)
-    // await this.props.loadOrderInfo()
   }
 
   render() {
@@ -109,7 +108,6 @@ const mapDispatch = dispatch => {
     loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: id => dispatch(deleteItemFromCart(id)),
     submitOrderPut: order => dispatch(submitOrderPut(order))
-    // loadOrderInfo: () => dispatch(me())
   }
 }
 

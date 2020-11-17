@@ -19,7 +19,6 @@ class SingleProduct extends React.Component {
 
   async componentDidMount() {
     await this.props.loadSingleProduct(this.props.match.params.id)
-    await this.props.loadOrderInfo()
   }
 
   handleSelectChange(evt) {
@@ -87,8 +86,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: product => dispatch(fetchAddToCart(product)),
-    loadOrderInfo: () => dispatch(me())
+    addToCart: product => dispatch(fetchAddToCart(product))
   }
 }
 

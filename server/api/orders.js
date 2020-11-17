@@ -4,6 +4,16 @@ const Product = require('../db/models/product')
 const OrderDetails = require('../db/models/orderDetail')
 const {isAdmin} = require('../api/helper')
 
+// was from /auth/me
+// const orderId = await Order.findOrCreate({
+//   where: {
+//     userId: req.user.dataValues.id,
+//     isFulfilled: 'FALSE'
+//   }
+// })
+
+// req.user.dataValues.order = orderId[0].dataValues
+
 // passing the userId in req.params
 router.get('/:userId', async (req, res, next) => {
   console.log('user ID passed in-->', req.params.userId)
@@ -26,6 +36,35 @@ router.get('/:userId', async (req, res, next) => {
       ]
     })
     res.send(shoppingCart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// router.get('/users/:userId', async (req, res, next) => {
+//   try {
+//     const newOrder = await Order.findOrCreate({
+//       where: {
+//         userId: req.params.userId,
+//         isFulfilled: false,
+//       },
+//     })
+//     console.log('NEW ORDER', newOrder)
+//     res.send(newOrder)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+router.post('/newOrder', async (req, res, next) => {
+  try {
+    const newOrder = await Order.findOrCreate({
+      where: {
+        userId: req.body.userId,
+        isFulfilled: false
+      }
+    })
+    res.send(newOrder)
   } catch (error) {
     next(error)
   }

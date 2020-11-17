@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const CREATE_ORDER = 'CREATE_ORDER'
+
 const GET_ORDER = 'GET_ORDER'
 
 const GET_SHOPPING_CART = 'GET_SHOPPING_CART'
@@ -10,7 +12,11 @@ const DELETE_ITEM = 'DELETE_ITEM'
 
 const SUBMIT_ORDER = 'SUBMIT_ORDER'
 
-// retrieve order info for user
+const createOrder = userId => ({
+  type: CREATE_ORDER,
+  userId
+})
+
 const getOrder = order => ({
   type: GET_ORDER,
   order
@@ -36,6 +42,16 @@ const deleteItem = orderDetailsId => ({
 const submitOrder = () => ({
   type: SUBMIT_ORDER
 })
+
+export const createNewOrder = userId => {
+  return async dispatch => {
+    try {
+      const newOrder = await axios.get(`/orders/${userId}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export const fetchCart = userId => {
   console.log('from component did mount!!!!', userId)
@@ -106,7 +122,8 @@ const initalState = {
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
     case GET_SHOPPING_CART:
-      return {...state, shoppingCart: action.items}
+      return {...state, shoppingCart: [action.items]}
+    // return {...state, shoppingCart: [...state.shoppingCart, action.items]}
     case ADD_TO_CART:
       // let productId = state.shoppingCart.map(el => el.productId)
       // if (productId === action.productObj.productId) {

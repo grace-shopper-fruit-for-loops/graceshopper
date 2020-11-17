@@ -13,7 +13,6 @@ import AllProductstoRemove from './components/products-remove'
 import UpdateProduct from './components/product-update'
 
 import AdminHome from './components/admin'
-import ErrorPage from './components/ErrorPage'
 /**
  * COMPONENT
  */
@@ -32,11 +31,7 @@ class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/" component={Home} />
         <Route exact path="/admin" component={AdminHome} />
-        <Route
-          exact
-          path="/orders"
-          render={props => <Order {...props} isAuthed={true} />}
-        />
+        <Route exact path="/orders" component={Order} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/orders/confirmed" component={OrderConfirmation} />
