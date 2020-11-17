@@ -100,8 +100,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadTotalCart: userId => dispatch(fetchCart(userId)),
-    deleteItem: productId => dispatch(deleteItem(productId))
+    loadTotalCart: userId => dispatch(fetchCart(userId))
+    // deleteItem: productId => dispatch(deleteItem(productId))
   }
 }
 

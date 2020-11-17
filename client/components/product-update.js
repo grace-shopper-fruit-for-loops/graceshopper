@@ -46,7 +46,6 @@ class UpdateProduct extends Component {
     )
   }
   render() {
-    console.log('PROPS UP[DATE ', this.state)
     return (
       <div>
         <h1>Edit Product</h1>

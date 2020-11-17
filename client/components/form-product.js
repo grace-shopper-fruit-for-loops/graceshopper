@@ -34,6 +34,7 @@ const FormProduct = props => (
         type="number"
         value={props.quantity}
         onChange={props.handleChange}
+        required
       />
     </div>
     <div className="form-group ">
@@ -41,10 +42,10 @@ const FormProduct = props => (
       <input
         className="form-control"
         name="price"
-        // type="number"
-
+        type="number"
         value={props.price}
         onChange={props.handleChange}
+        required
       />
     </div>
 
@@ -59,15 +60,17 @@ const FormProduct = props => (
       />
     </div>
 
-    <div className="form-group ">
+    <div className="form-group">
       <label htmlFor="category">Category:</label>
-      <input
-        className="form-control"
-        name="category"
-        type="text"
-        value={props.category}
+      <select
         onChange={props.handleChange}
-      />
+        name="category"
+        value={props.category}
+        className="browser-default custom-select custom-select-lg mb-3"
+      >
+        <option>Juice</option>
+        <option>Smoothie</option>
+      </select>
     </div>
     <button className="btn btn-success" type="submit">
       Save Changes
