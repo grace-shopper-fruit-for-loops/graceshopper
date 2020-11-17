@@ -46,7 +46,6 @@ class AllProductstoRemove extends React.Component {
   }
 
   getProduct() {
-    // this.props.fetchSingleProduct(this.props.match.params.orderId)
     this.setState({
       ...this.state,
       showUpdateProduct: false
@@ -97,6 +96,7 @@ class AllProductstoRemove extends React.Component {
                 <td>${product.price}</td>
                 <td>${product.imageUrl}</td>
                 <td>${product.category}</td>
+
                 <td>
                   {this.removeProduct && (
                     <button
