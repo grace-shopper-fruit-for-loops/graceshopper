@@ -2,12 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {createNewOrder} from '../store/order'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
+  console.log('props in auth form', props)
 
   return (
     <div>

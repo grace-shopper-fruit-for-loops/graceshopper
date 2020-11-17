@@ -2,11 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchSingleProduct} from '../store/singleProduct'
-import {fetchAddToCart} from '../store/order'
-import Order from './order'
+import {fetchAddToCart, createNewOrder, postNewOrder} from '../store/order'
 import {fetchProducts} from '../store/products'
-import {postNewOrder} from '../store/order'
-import {me} from '../store/user'
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -17,8 +14,12 @@ class SingleProduct extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
-  async componentDidMount() {
-    await this.props.loadSingleProduct(this.props.match.params.id)
+  componentDidMount() {
+    console.log('inside cdm')
+    this.props.loadSingleProduct(this.props.match.params.id)
+    console.log('middle')
+    this.props.loadOrderInfo()
+    console.log('end')
   }
 
   handleSelectChange(evt) {
@@ -26,6 +27,7 @@ class SingleProduct extends React.Component {
   }
 
   render() {
+    console.log('this.props', this.props)
     const {quantity} = this.state
     const product = this.props.singleProduct
     const users = this.props.user
@@ -86,7 +88,10 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: product => dispatch(fetchAddToCart(product))
+    addToCart: product => dispatch(fetchAddToCart(product)),
+    loadOrderInfo: () => {
+      dispatch(createNewOrder())
+    }
   }
 }
 

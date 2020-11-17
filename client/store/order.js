@@ -43,10 +43,13 @@ const submitOrder = () => ({
   type: SUBMIT_ORDER
 })
 
-export const createNewOrder = userId => {
+export const createNewOrder = () => {
+  console.log('HELLO MADE IT HERE!')
   return async dispatch => {
+    console.log('here!!')
     try {
-      const newOrder = await axios.get(`/orders/${userId}`)
+      const newOrder = await axios.post('/api/orders/newOrder')
+      dispatch(createOrder(newOrder))
     } catch (error) {
       console.log(error)
     }
@@ -116,11 +119,14 @@ export const submitOrderPut = order => {
 }
 
 const initalState = {
-  shoppingCart: []
+  shoppingCart: [],
+  order: {}
 }
 
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
+    case CREATE_ORDER:
+      return {...state, order: action.userId}
     case GET_SHOPPING_CART:
       return {...state, shoppingCart: [action.items]}
     // return {...state, shoppingCart: [...state.shoppingCart, action.items]}

@@ -13,6 +13,7 @@ import AllProductstoRemove from './components/products-remove'
 import UpdateProduct from './components/product-update'
 
 import AdminHome from './components/admin'
+import {createNewOrder} from './store/order'
 /**
  * COMPONENT
  */
@@ -69,6 +70,9 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     }
+    // loadOrderInfo() {
+    //   dispatch(createNewOrder(this.state.user.id))
+    // },
   }
 }
 
