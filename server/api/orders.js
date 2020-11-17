@@ -6,7 +6,7 @@ const {isAdmin} = require('../api/helper')
 
 // passing the userId in req.params
 router.get('/:userId', async (req, res, next) => {
-  console.log('REQ PARAMS inside get request-->', req.params.userId)
+  console.log('user ID passed in-->', req.params.userId)
   try {
     const orderId = await Order.findOne({
       where: {
@@ -14,7 +14,7 @@ router.get('/:userId', async (req, res, next) => {
         isFulfilled: 'FALSE'
       }
     })
-    console.log('ORDER ID inside get request', orderId)
+    console.log('ORDER ID found>>>>>>>>???', orderId.id)
     const shoppingCart = await OrderDetails.findAll({
       where: {
         orderId: orderId.id
@@ -34,10 +34,26 @@ router.get('/:userId', async (req, res, next) => {
 // create a new product in the shopping cart
 router.post('/', async (req, res, next) => {
   console.log('INSIDE OF ROUTE<<<<')
-  console.log('REQ BODY IN ORDER', req.body)
+  console.log('REQ BODY IN post', req.body)
   try {
     const newPost = await OrderDetails.create(req.body)
     res.send(newPost)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// update isFulfilled to true
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    await Order.update(req.body, {
+      where: {
+        id: req.params.orderId
+      },
+      returning: true,
+      plain: true
+    })
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

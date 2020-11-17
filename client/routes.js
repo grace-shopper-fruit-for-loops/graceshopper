@@ -41,8 +41,6 @@ class Routes extends Component {
 
         <Route path="/updateProduct/:productId" component={UpdateProduct} />
 
-        {/* <Route path="*" component={ErrorPage} /> */}
-
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

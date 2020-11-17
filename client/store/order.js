@@ -6,9 +6,9 @@ const GET_SHOPPING_CART = 'GET_SHOPPING_CART'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 
-const CREATE_ORDER = 'CREATE_ORDER'
-
 const DELETE_ITEM = 'DELETE_ITEM'
+
+const SUBMIT_ORDER = 'SUBMIT_ORDER'
 
 // retrieve order info for user
 const getOrder = order => ({
@@ -28,26 +28,15 @@ const addToCart = productObj => ({
   productObj
 })
 
-const createOrder = userId => ({
-  type: CREATE_ORDER,
-  userId
-})
-
 const deleteItem = id => ({
   type: DELETE_ITEM,
   id
 })
 
-// export const fetchOrder = () => {
-//   return async (dispatch) => {
-//     //get user info
-//     const {data: userId} = await axios.get('/auth/me')
-//     const {data: orderId} = await axios.get(`/api/orders/${userId}`)
-//     dispatch(getOrder(orderId))
-//   }
-// }
+const submitOrder = () => ({
+  type: SUBMIT_ORDER
+})
 
-////this thunk is not running correctly!
 export const fetchCart = userId => {
   console.log('from component did mount!!!!', userId)
   return async dispatch => {
@@ -79,9 +68,31 @@ export const deleteItemFromCart = id => {
   console.log('made it here', id)
   return async dispatch => {
     try {
+      console.log('>>>also made it here')
       await axios.delete(`/api/orders/${id}`)
       console.log('also made it here')
       dispatch(deleteItem(id))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+// export const incrementQtyThunk = (num) => {
+//   return async (dispatch) => {
+//     try {
+
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }
+
+export const submitOrderPut = order => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/orders/${orderId}`, order)
+      dispatch(submitOrder())
     } catch (error) {
       console.log(error)
     }
@@ -97,6 +108,10 @@ export default function shoppingCart(state = initalState, action) {
     case GET_SHOPPING_CART:
       return {...state, shoppingCart: action.items}
     case ADD_TO_CART:
+      // let productId = state.shoppingCart.map(el => el.productId)
+      // if (productId === action.productObj.productId) {
+
+      // }
       return {
         ...state,
         shoppingCart: [...state.shoppingCart, action.productObj]
@@ -107,6 +122,8 @@ export default function shoppingCart(state = initalState, action) {
         ...state,
         shoppingCart: [...state.filter(cart => cart.id !== action.id)]
       }
+    case SUBMIT_ORDER:
+      return state
     default:
       return state
   }

@@ -51,6 +51,7 @@ router.get('/me', async (req, res) => {
   })
 
   req.user.dataValues.order = orderId[0].dataValues
+  // console.log('REQ USER--->', req.user)
   res.json(req.user)
 })
 

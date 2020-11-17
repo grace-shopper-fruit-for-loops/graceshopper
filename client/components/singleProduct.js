@@ -49,7 +49,7 @@ class SingleProduct extends React.Component {
               onChange={this.handleSelectChange}
               value={quantity}
               name="quantity"
-              className="browser-default custom-select custom-select-lg mb-3"
+              // className="browser-default custom-select custom-select-lg mb-3"
             >
               <option>1</option>
               <option>2</option>
