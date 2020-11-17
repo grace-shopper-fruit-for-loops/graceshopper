@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {deleteItemFromCart, fetchCart, submitOrderPut} from '../store/order'
+import {me} from '../store/user'
 
 class Order extends React.Component {
   constructor(props) {
@@ -10,10 +11,10 @@ class Order extends React.Component {
     //   quantity: this.props.shoppingCart.shoppingCart.quantity,
     // }
   }
-  componentDidMount() {
-    console.log('props inside component did mount', this.props)
-    // this.props.getOrder()
-    this.props.loadTotalCart(this.props.userId.id)
+  async componentDidMount() {
+    // console.log('props inside component did mount', this.props)
+    await this.props.loadTotalCart(this.props.userId.id)
+    await this.props.loadOrderInfo()
   }
 
   render() {
@@ -40,8 +41,8 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>[name]</td>
-                  {/* <td>{el.product.name}</td> */}
+                  {/* <td>[name]</td> */}
+                  <td>{el.product.name}</td>
                   <td>
                     {/* <select
                       onChange={this.handleSelectChange}
@@ -83,13 +84,7 @@ class Order extends React.Component {
           <button
             type="submit"
             onClick={() =>
-              submitOrder({
-                createdAt: order.createdAt,
-                id: order.id,
-                isFulfilled: true,
-                updatedAt: order.updatedAt,
-                userId: order.userId
-              })
+              submitOrderPut(this.props.user.order.id, {isFulfilled: true})
             }
             className="btn btn-success"
           >
@@ -113,7 +108,8 @@ const mapDispatch = dispatch => {
   return {
     loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: id => dispatch(deleteItemFromCart(id)),
-    submitOrder: order => dispatch(submitOrderPut(order))
+    submitOrderPut: order => dispatch(submitOrderPut(order)),
+    loadOrderInfo: () => dispatch(me())
   }
 }
 

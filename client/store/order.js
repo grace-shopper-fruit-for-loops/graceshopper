@@ -28,9 +28,9 @@ const addToCart = productObj => ({
   productObj
 })
 
-const deleteItem = id => ({
+const deleteItem = orderDetailsId => ({
   type: DELETE_ITEM,
-  id
+  orderDetailsId
 })
 
 const submitOrder = () => ({
@@ -65,11 +65,11 @@ export const fetchAddToCart = productObj => {
 }
 
 export const deleteItemFromCart = id => {
-  console.log('made it here', id)
-  return async dispatch => {
+  console.log('delete thunk with order details ID', id)
+  return dispatch => {
     try {
       console.log('>>>also made it here')
-      await axios.delete(`/api/orders/${id}`)
+      axios.delete(`/api/orders/${id}`)
       console.log('also made it here')
       dispatch(deleteItem(id))
     } catch (error) {
@@ -91,7 +91,7 @@ export const deleteItemFromCart = id => {
 export const submitOrderPut = order => {
   return async dispatch => {
     try {
-      await axios.put(`/api/orders/${orderId}`, order)
+      await axios.put(`/api/orders/${order}`)
       dispatch(submitOrder())
     } catch (error) {
       console.log(error)
@@ -120,8 +120,11 @@ export default function shoppingCart(state = initalState, action) {
       // return {...state.shoppingCart.filter((cart) => cart.id !== action.id)}
       return {
         ...state,
-        shoppingCart: [...state.filter(cart => cart.id !== action.id)]
+        shoppingCart: [
+          ...state.filter(cart => cart.id !== action.orderDetailsId)
+        ]
       }
+    // return action.orderDetailsId
     case SUBMIT_ORDER:
       return state
     default:

@@ -44,16 +44,30 @@ router.post('/', async (req, res, next) => {
 })
 
 // update isFulfilled to true
+// router.put('/:orderId', async (req, res, next) => {
+//   try {
+//     await Order.update(req.body, {
+//       where: {
+//         id: req.params.orderId
+//       },
+//       returning: true,
+//       plain: true
+//     })
+//     res.sendStatus(200)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
 router.put('/:orderId', async (req, res, next) => {
   try {
-    await Order.update(req.body, {
-      where: {
-        id: req.params.orderId
-      },
-      returning: true,
-      plain: true
-    })
-    res.sendStatus(200)
+    console.log('REQ BODY IN ORDER', req.params.orderId)
+    const updatedOrderDetails = await Order.findByPk(req.params.orderId)
+    const data = {
+      isFulfilled: req.body.isFulfilled
+    }
+    await updatedOrderDetails.update(data)
+    res.send(updatedOrderDetails)
   } catch (error) {
     next(error)
   }
@@ -75,8 +89,5 @@ router.delete('/:id', async (req, res, next) => {
     next(error)
   }
 })
-
-// router.put -> will update isFulfilled to true when user clicks checkout
-//           -> also need to empty the cart
 
 module.exports = router

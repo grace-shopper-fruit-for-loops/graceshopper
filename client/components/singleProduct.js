@@ -6,6 +6,7 @@ import {fetchAddToCart} from '../store/order'
 import Order from './order'
 import {fetchProducts} from '../store/products'
 import {postNewOrder} from '../store/order'
+import {me} from '../store/user'
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -16,12 +17,9 @@ class SingleProduct extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
-  componentDidMount() {
-    try {
-      this.props.loadSingleProduct(this.props.match.params.id)
-    } catch (error) {
-      console.log(error)
-    }
+  async componentDidMount() {
+    await this.props.loadSingleProduct(this.props.match.params.id)
+    await this.props.loadOrderInfo()
   }
 
   handleSelectChange(evt) {
@@ -89,7 +87,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: product => dispatch(fetchAddToCart(product))
+    addToCart: product => dispatch(fetchAddToCart(product)),
+    loadOrderInfo: () => dispatch(me())
   }
 }
 
