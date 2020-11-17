@@ -31,15 +31,6 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// router.post('/', isAdmin, async (req, res, next) => {
-//   try {
-//     const newOrder = await Order.create(req.body)
-//     res.send(newOrder)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 router.post('/', async (req, res, next) => {
   console.log('REQ BODY IN ORDER', req.body)
   try {
