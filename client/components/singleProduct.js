@@ -20,7 +20,6 @@ class SingleProduct extends React.Component {
   handleSelectChange(evt) {
     this.setState({quantity: parseInt(evt.target.value)})
   }
-
   render() {
     const {quantity} = this.state
     const product = this.props.singleProduct
