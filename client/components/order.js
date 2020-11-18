@@ -21,7 +21,6 @@ class Order extends React.Component {
   }
 
   render() {
-
     let sum = 0
     const cart = this.props.shoppingCart
 
@@ -29,6 +28,12 @@ class Order extends React.Component {
     console.log('props in shopping cart component--->', userId)
     const quantity = this.props
     const cartPrice = cart.map(el => el.price * el.quantity)
+    const containsUndefinedProducts = cart.filter(
+      el => el.product === undefined
+    )
+    const hasItemsInCart =
+      cart.length >= 1 && containsUndefinedProducts.length === 0
+
     return (
       <div>
         <h3 className="card-title h3 text-success">
@@ -46,7 +51,7 @@ class Order extends React.Component {
               <th> </th>
             </tr>
           </thead>
-          {cart.length >= 1 ? (
+          {hasItemsInCart ? (
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
@@ -84,9 +89,9 @@ class Order extends React.Component {
               </tr>
             </tbody>
           ) : (
-            // <div>
-            <h3>You do not have any items in your shopping cart</h3>
-            // </div>
+            <div>
+              <h3>You do not have any items in your shopping cart</h3>
+            </div>
           )}
         </table>
 
