@@ -4,23 +4,12 @@ const Product = require('../db/models/product')
 const OrderDetails = require('../db/models/orderDetail')
 const {isAdmin} = require('../api/helper')
 
-// was from /auth/me
-// const orderId = await Order.findOrCreate({
-//   where: {
-//     userId: req.user.dataValues.id,
-//     isFulfilled: 'FALSE'
-//   }
-// })
-
-// req.user.dataValues.order = orderId[0].dataValues
-
-// passing the userId in req.params
-router.get('/:userId', async (req, res, next) => {
-  console.log('user ID passed in-->', req.params.userId)
+router.get('/', async (req, res, next) => {
+  console.log('user ID passed in-->', req.user.dataValues.id)
   try {
     const orderId = await Order.findOne({
       where: {
-        userId: req.params.userId,
+        userId: req.user.dataValues.id,
         isFulfilled: 'FALSE'
       }
     })
@@ -35,12 +24,12 @@ router.get('/:userId', async (req, res, next) => {
         }
       ]
     })
+    console.log('shopping cart---->', shoppingCart)
     res.send(shoppingCart)
   } catch (error) {
     next(error)
   }
 })
-
 
 router.post('/newOrder', async (req, res, next) => {
   try {
