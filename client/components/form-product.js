@@ -68,7 +68,9 @@ const FormProduct = props => (
         value={props.category}
         className="browser-default custom-select custom-select-lg mb-3"
       >
-        <option>Juice</option>
+        <option selected value="Juice">
+          Juice
+        </option>
         <option>Smoothie</option>
       </select>
     </div>
