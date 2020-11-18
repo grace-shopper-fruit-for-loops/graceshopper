@@ -1,4 +1,4 @@
-deployed link ---> https://graceshopper-juice.herokuapp.com/
+deployed link ---> https://graceshopper-juicify.herokuapp.com/
 team norms ---> https://docs.google.com/document/d/1onz6hDaIIrIznVCpADKqVGZU5bTcOxRkSC10ceWvv4A/edit?usp=sharing
 
 # Boilermaker
