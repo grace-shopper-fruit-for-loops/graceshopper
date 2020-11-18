@@ -32,7 +32,7 @@ class SingleProduct extends React.Component {
 
     return (
       <div className="jumbotron text-center">
-        <div className="single-product-container">
+        <div className="container-juices">
           <h1 className="card-title h2 text-success">{product.name}</h1>
           <img src={product.imageUrl} className="img-products" />
 
