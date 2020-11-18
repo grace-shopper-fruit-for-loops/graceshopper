@@ -31,13 +31,14 @@ class SingleProduct extends React.Component {
     const orderId = ((users || {}).order || {}).id
 
     return (
-      <div>
+      <div className="jumbotron text-center">
         <div className="single-product-container">
-          <h1>{product.name}</h1>
+          <h1 className="card-title h2 text-success">{product.name}</h1>
           <img src={product.imageUrl} className="img-products" />
 
           <h5>{product.category}</h5>
           <h5>Price: ${product.price}</h5>
+          <br />
           <p>Details: {product.description}</p>
           <div>
             Quantity:
@@ -54,6 +55,7 @@ class SingleProduct extends React.Component {
               <option>5</option>
             </select>
           </div>
+          <br />
           <button
             type="submit"
             className="btn btn-success"

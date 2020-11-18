@@ -20,8 +20,11 @@ class AllProducts extends React.Component {
 
   render() {
     return (
-      <div id="all-products">
-        <h2> These are all our healthy and yummy products! </h2>
+      <div className="jumbotron text-center">
+        <h2 className="card-title h2 text-success">
+          {' '}
+          These are all our healthy and yummy products!{' '}
+        </h2>
         <div>
           {/* <button
             onClick={() => this.props.postNewOrder(user.id)}
@@ -33,7 +36,7 @@ class AllProducts extends React.Component {
             {this.props.products.map(product => (
               <div key={product.id}>
                 <Link to={`/products/${product.id}`}>
-                  <h3>{product.name}</h3>
+                  <p className="card-title h4 text-success">{product.name}</p>
                   <img
                     src={product.imageUrl}
                     height="300"

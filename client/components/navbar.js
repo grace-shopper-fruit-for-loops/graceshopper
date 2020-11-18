@@ -6,8 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
-    {/* <h1>Juices and Smoothies </h1> */}
-    <nav className="navbar  nav-color ">
+    <nav className="navbar">
       {isLoggedIn ? (
         //  {isAdmin ? () : ()}
         <div>
@@ -34,6 +33,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/">Home</Link>
           <Link to="/products"> Products</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Create Account</Link>
           <Link to="/orders">
             {' '}
             <img
@@ -41,8 +42,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
               className="img-nav"
             />
           </Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Create Account</Link>
         </div>
       )}
     </nav>

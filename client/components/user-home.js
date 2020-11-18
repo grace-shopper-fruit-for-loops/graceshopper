@@ -29,16 +29,16 @@ export const UserHome = props => {
 
         <div className="col-md-7 text-md-left ml-3 mt-3">
           <a href="#!" className="green-text">
-            <h6 className="h6 pb-1">
+            <h4 className="h6 pb-1">
               <i className="fas fa-desktop pr-1" /> Welcome {email}
-            </h6>
+            </h4>
           </a>
-          <h4 className="h4 mb-4">This is title of the news</h4>
+          <h2 className="h4 mb-4">
+            Welcome back!!! We are so happy to see you again!!!
+          </h2>
           <p className="font-weight-normal">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque, totam rem aperiam, eaque ipsa quae ab illo
-            inventore veritatis et quasi architecto beatae vitae dicta sunt
-            explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
+            Thanks for bein a loyal customer of Fruitify Juicery !!! We hope you
+            have an amazing day and find the most delicious juices here
           </p>
           <p className="font-weight-normal">
             by{' '}

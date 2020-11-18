@@ -18,20 +18,23 @@ const AdminHome = () => {
 
         <div className="col-md-7 text-md-left ml-3 mt-3">
           <a href="#!" className="green-text">
-            <h6 className="h6 pb-1">
+            {/* <h6 className="h6 pb-1">
               <i className="fas fa-desktop pr-1" /> Welcome
-            </h6>
+            </h6> */}
           </a>
-          <h4 className="h4 mb-4">This is title of the news</h4>
-          <p className="font-weight-normal">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque, totam rem aperiam, eaque ipsa quae ab illo
-            inventore veritatis et quasi architecto beatae vitae dicta sunt
-            explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
-          </p>
+          <h4 className="h4 mb-4">Here are some reminders for you:</h4>
+          <p className="font-weight-normal" />
           <p className="font-weight-normal">
             <a>
-              <strong>Don't forget to create products</strong>
+              <strong> Don't forget to smile</strong>
+            </a>
+            <br />
+            <a>
+              <strong> Don't forget to be awesome and...</strong>
+            </a>
+            <br />
+            <a>
+              <strong>Don't forget to create products please!!!</strong>
             </a>
             , 19/08/2016
           </p>

@@ -57,12 +57,9 @@ export const createNewOrder = () => {
 }
 
 export const fetchCart = userId => {
-  console.log('from component did mount!!!!', userId)
   return async dispatch => {
     try {
-      console.log('before axios', userId)
       const {data} = await axios.get(`/api/orders/${userId}`)
-      console.log('THUNK DATA->', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error, 'error in the fetch cart thunk')
@@ -71,7 +68,6 @@ export const fetchCart = userId => {
 }
 
 export const fetchAddToCart = productObj => {
-  console.log('product obj-->', productObj)
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/orders', productObj)
@@ -84,12 +80,9 @@ export const fetchAddToCart = productObj => {
 }
 
 export const deleteItemFromCart = id => {
-  console.log('delete thunk with order details ID', id)
   return dispatch => {
     try {
-      console.log('>>>also made it here')
       axios.delete(`/api/orders/${id}`)
-      console.log('also made it here')
       dispatch(deleteItem(id))
     } catch (error) {
       console.log(error)
@@ -128,7 +121,7 @@ export default function shoppingCart(state = initalState, action) {
     case CREATE_ORDER:
       return {...state, order: action.userId}
     case GET_SHOPPING_CART:
-      return {...state, shoppingCart: [action.items]}
+      return {...state, shoppingCart: action.items}
     // return {...state, shoppingCart: [...state.shoppingCart, action.items]}
     case ADD_TO_CART:
       // let productId = state.shoppingCart.map(el => el.productId)
