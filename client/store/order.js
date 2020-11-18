@@ -56,13 +56,11 @@ export const createNewOrder = () => {
   }
 }
 
-export const fetchCart = userId => {
-  console.log('from component did mount!!!!', userId)
+export const fetchCart = () => {
   return async dispatch => {
     try {
-      console.log('before axios', userId)
-      const {data} = await axios.get(`/api/orders/${userId}`)
-      console.log('THUNK DATA->', data)
+      const {data} = await axios.get('/api/orders')
+      console.log('data from fetch cart thunk', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error, 'error in the fetch cart thunk')
@@ -75,6 +73,7 @@ export const fetchAddToCart = productObj => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/orders', productObj)
+
       dispatch(addToCart(data))
       alert('Item Added To Cart')
     } catch (error) {
@@ -128,7 +127,7 @@ export default function shoppingCart(state = initalState, action) {
     case CREATE_ORDER:
       return {...state, order: action.userId}
     case GET_SHOPPING_CART:
-      return {...state, shoppingCart: [action.items]}
+      return {...state, shoppingCart: action.items}
     // return {...state, shoppingCart: [...state.shoppingCart, action.items]}
     case ADD_TO_CART:
       // let productId = state.shoppingCart.map(el => el.productId)
@@ -140,18 +139,18 @@ export default function shoppingCart(state = initalState, action) {
         shoppingCart: [...state.shoppingCart, action.productObj]
       }
     case DELETE_ITEM:
+      // return {
+      //   ...state,
+      //   shoppingCart: [shoppingCart.filter((cart) => cart.id !== action.id)],
+      // }
       return {
         ...state,
         shoppingCart: [
-          ...state.shoppingCart.filter(cart => cart.id !== action.id)
+          ...state.shoppingCart.filter(
+            cart => cart.id !== action.orderDetailsId
+          )
         ]
       }
-    // return {
-    //   ...state,
-    //   shoppingCart: [
-    //     ...state.filter(cart => cart.id !== action.orderDetailsId)
-    //   ]
-    // }
     // return action.orderDetailsId
     case SUBMIT_ORDER:
       return state
