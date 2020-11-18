@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {signup} from '../store'
+import {createNewOrder} from '../store/order'
 
 /**
  * COMPONENT
@@ -44,7 +45,11 @@ const SignUp = props => {
           />
         </div>
         <div>
-          <button className="btn btn-primary" type="submit">
+          <button
+            onClick={() => props.loadOrderInfo()}
+            className="btn btn-primary"
+            type="submit"
+          >
             {displayName}
           </button>
         </div>
@@ -84,6 +89,9 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(signup(firstName, lastName, email, password))
+    },
+    loadOrderInfo(order) {
+      dispatch(createNewOrder(order))
     }
   }
 }

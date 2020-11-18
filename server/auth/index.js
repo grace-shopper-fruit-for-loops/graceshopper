@@ -23,9 +23,6 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
-    // adds an empty cart when a user creates an account
-    // const shoppingCart = await Order.create()
-    // await user.addOrder(shoppingCart)
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
@@ -42,15 +39,7 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', async (req, res) => {
-  const orderId = await Order.findOrCreate({
-    where: {
-      userId: req.user.dataValues.id,
-      isFulfilled: 'FALSE'
-    }
-  })
-
-  req.user.dataValues.order = orderId[0].dataValues
+router.get('/me', (req, res) => {
   res.json(req.user)
 })
 

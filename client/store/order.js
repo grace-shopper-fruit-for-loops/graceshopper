@@ -1,16 +1,22 @@
 import axios from 'axios'
 
+const CREATE_ORDER = 'CREATE_ORDER'
+
 const GET_ORDER = 'GET_ORDER'
 
 const GET_SHOPPING_CART = 'GET_SHOPPING_CART'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 
-const CREATE_ORDER = 'CREATE_ORDER'
-
 const DELETE_ITEM = 'DELETE_ITEM'
 
-// retrieve order info for user
+const SUBMIT_ORDER = 'SUBMIT_ORDER'
+
+const createOrder = userId => ({
+  type: CREATE_ORDER,
+  userId
+})
+
 const getOrder = order => ({
   type: GET_ORDER,
   order
@@ -28,26 +34,28 @@ const addToCart = productObj => ({
   productObj
 })
 
-const createOrder = userId => ({
-  type: CREATE_ORDER,
-  userId
-})
-
-const deleteItem = id => ({
+const deleteItem = orderDetailsId => ({
   type: DELETE_ITEM,
-  id
+  orderDetailsId
 })
 
-// export const fetchOrder = () => {
-//   return async (dispatch) => {
-//     //get user info
-//     const {data: userId} = await axios.get('/auth/me')
-//     const {data: orderId} = await axios.get(`/api/orders/${userId}`)
-//     dispatch(getOrder(orderId))
-//   }
-// }
+const submitOrder = () => ({
+  type: SUBMIT_ORDER
+})
 
-////this thunk is not running correctly!
+export const createNewOrder = () => {
+  console.log('HELLO MADE IT HERE!')
+  return async dispatch => {
+    console.log('here!!')
+    try {
+      const newOrder = await axios.post('/api/orders/newOrder')
+      dispatch(createOrder(newOrder))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const fetchCart = userId => {
   console.log('from component did mount!!!!', userId)
   return async dispatch => {
@@ -76,10 +84,11 @@ export const fetchAddToCart = productObj => {
 }
 
 export const deleteItemFromCart = id => {
-  console.log('made it here', id)
-  return async dispatch => {
+  console.log('delete thunk with order details ID', id)
+  return dispatch => {
     try {
-      await axios.delete(`/api/orders/${id}`)
+      console.log('>>>also made it here')
+      axios.delete(`/api/orders/${id}`)
       console.log('also made it here')
       dispatch(deleteItem(id))
     } catch (error) {
@@ -88,25 +97,64 @@ export const deleteItemFromCart = id => {
   }
 }
 
+// export const incrementQtyThunk = (num) => {
+//   return async (dispatch) => {
+//     try {
+
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }
+
+export const submitOrderPut = order => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/orders/${order}`)
+      dispatch(submitOrder())
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 const initalState = {
-  shoppingCart: []
+  shoppingCart: [],
+  order: {}
 }
 
 export default function shoppingCart(state = initalState, action) {
   switch (action.type) {
+    case CREATE_ORDER:
+      return {...state, order: action.userId}
     case GET_SHOPPING_CART:
-      return {...state, shoppingCart: action.items}
+      return {...state, shoppingCart: [action.items]}
+    // return {...state, shoppingCart: [...state.shoppingCart, action.items]}
     case ADD_TO_CART:
+      // let productId = state.shoppingCart.map(el => el.productId)
+      // if (productId === action.productObj.productId) {
+
+      // }
       return {
         ...state,
         shoppingCart: [...state.shoppingCart, action.productObj]
       }
     case DELETE_ITEM:
-      // return {...state.shoppingCart.filter((cart) => cart.id !== action.id)}
       return {
         ...state,
-        shoppingCart: [...state.filter(cart => cart.id !== action.id)]
+        shoppingCart: [
+          ...state.shoppingCart.filter(cart => cart.id !== action.id)
+        ]
       }
+    // return {
+    //   ...state,
+    //   shoppingCart: [
+    //     ...state.filter(cart => cart.id !== action.orderDetailsId)
+    //   ]
+    // }
+    // return action.orderDetailsId
+    case SUBMIT_ORDER:
+      return state
     default:
       return state
   }

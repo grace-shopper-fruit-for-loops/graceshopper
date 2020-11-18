@@ -13,7 +13,7 @@ import AllProductstoRemove from './components/products-remove'
 import UpdateProduct from './components/product-update'
 
 import AdminHome from './components/admin'
-import ErrorPage from './components/ErrorPage'
+import {createNewOrder} from './store/order'
 /**
  * COMPONENT
  */
@@ -40,8 +40,6 @@ class Routes extends Component {
         <Route path="/createProduct" component={AllProductstoRemove} />
 
         <Route path="/updateProduct/:productId" component={UpdateProduct} />
-
-        {/* <Route path="*" component={ErrorPage} /> */}
 
         {isLoggedIn && (
           <Switch>
@@ -72,6 +70,9 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     }
+    // loadOrderInfo() {
+    //   dispatch(createNewOrder(this.state.user.id))
+    // },
   }
 }
 
