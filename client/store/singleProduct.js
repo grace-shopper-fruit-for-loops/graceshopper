@@ -46,7 +46,6 @@ export const deleteProductThunk = id => {
       const {data: product} = await axios.delete(`/api/products/${id}`)
       dispatch(deleteProduct(product))
     } catch (error) {
-      console.log('Error deleting product')
       console.error(error)
     }
   }
@@ -64,8 +63,6 @@ const updateProduct = product => {
 export const updateProductThunk = (id, product) => {
   return async dispatch => {
     try {
-      console.log('PRODUCT', product)
-      console.log('ID', id)
       const {data: updatedProduct} = await axios.put(
         `/api/products/${id}`,
         product
@@ -73,7 +70,6 @@ export const updateProductThunk = (id, product) => {
       dispatch(updateProduct(updatedProduct))
       history.push('/createProduct')
     } catch (error) {
-      console.log('Error updating campus from api')
       console.error(error)
     }
   }

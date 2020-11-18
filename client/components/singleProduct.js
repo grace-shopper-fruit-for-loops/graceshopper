@@ -24,14 +24,10 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log('this.props', this.props)
     const {quantity} = this.state
     const product = this.props.singleProduct
     const users = this.props.user
     const orderId = this.props.order
-    console.log('ORDERID __>', orderId)
-    // const orderId = ((users || {}).order || {}).id
-
     return (
       <div>
         <div className="single-product-container">

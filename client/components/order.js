@@ -17,7 +17,6 @@ class Order extends React.Component {
     // }
   }
   async componentDidMount() {
-    // console.log('props inside component did mount', this.props)
     await this.props.loadTotalCart(this.props.userId.id)
   }
 
@@ -25,12 +24,11 @@ class Order extends React.Component {
     let sum = 0
     const cart = this.props.shoppingCart
     const userId = this.props.userId.id
-    console.log('props in shopping cart component--->', userId)
     const quantity = this.props
     const cartPrice = cart.map(el => el.price * el.quantity)
     return (
       <div>
-        <h1>This is the shopping cart!!!</h1>
+        <h5>Cart</h5>
         <table className="table">
           <thead className="thead-light">
             <tr>
