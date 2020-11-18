@@ -86,7 +86,7 @@ img.single-product-img {
   height: 300px;
 }
 
-/* .single-product-container {
+.single-product-container {
   align-items: center;
   align-content: center;
   text-align: justify;
@@ -95,7 +95,7 @@ img.single-product-img {
   width: 20%;
   margin: auto;
   padding: 5px;
-} */
+}
 
 .card-text {
   align-items: center;
