@@ -60,7 +60,7 @@ export const fetchCart = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/orders')
-      console.log('data from fetch cart thunk')
+      console.log('data from fetch cart thunk', data)
       dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error, 'error in the fetch cart thunk')
@@ -139,18 +139,18 @@ export default function shoppingCart(state = initalState, action) {
         shoppingCart: [...state.shoppingCart, action.productObj]
       }
     case DELETE_ITEM:
+      // return {
+      //   ...state,
+      //   shoppingCart: [shoppingCart.filter((cart) => cart.id !== action.id)],
+      // }
       return {
         ...state,
         shoppingCart: [
-          ...state.shoppingCart.filter(cart => cart.id !== action.id)
+          ...state.shoppingCart.filter(
+            cart => cart.id !== action.orderDetailsId
+          )
         ]
       }
-    // return {
-    //   ...state,
-    //   shoppingCart: [
-    //     ...state.filter(cart => cart.id !== action.orderDetailsId)
-    //   ]
-    // }
     // return action.orderDetailsId
     case SUBMIT_ORDER:
       return state

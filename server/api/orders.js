@@ -20,7 +20,10 @@ router.get('/', async (req, res, next) => {
       },
       include: [
         {
-          model: Product
+          model: Product,
+          through: {
+            attributes: []
+          }
         }
       ]
     })

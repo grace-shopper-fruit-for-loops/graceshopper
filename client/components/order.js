@@ -45,8 +45,8 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  {/* <td>[name]</td> */}
-                  <td>{el.id}</td>
+                  <td>[name]</td>
+                  {/* <td>{el.product.name}</td> */}
                   <td>
                     {/* <select
                       onChange={this.handleSelectChange}
