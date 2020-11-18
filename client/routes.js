@@ -9,9 +9,11 @@ import {me} from './store'
 import Home from './components/home'
 import Order from './components/order'
 import OrderConfirmation from './components/order-confirmation'
-import ErrorPage from './components/ErrorPage'
-// import Signup from './components/signup'
+import AllProductstoRemove from './components/products-remove'
+import UpdateProduct from './components/product-update'
 
+import AdminHome from './components/admin'
+import {createNewOrder} from './store/order'
 /**
  * COMPONENT
  */
@@ -29,11 +31,15 @@ class Routes extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/" component={Home} />
+        <Route exact path="/admin" component={AdminHome} />
         <Route exact path="/orders" component={Order} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/orders/confirmed" component={OrderConfirmation} />
-        {/* <Route path="*" component={ErrorPage} /> */}
+
+        <Route path="/createProduct" component={AllProductstoRemove} />
+
+        <Route path="/updateProduct/:productId" component={UpdateProduct} />
 
         {isLoggedIn && (
           <Switch>
@@ -64,6 +70,9 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     }
+    // loadOrderInfo() {
+    //   dispatch(createNewOrder(this.state.user.id))
+    // },
   }
 }
 

@@ -2,54 +2,70 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchSingleProduct} from '../store/singleProduct'
-import {fetchAddToCart} from '../store/order'
-import Order from './order'
+import {fetchAddToCart, createNewOrder, postNewOrder} from '../store/order'
 import {fetchProducts} from '../store/products'
-import {postNewOrder} from '../store/order'
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
-    // this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      quantity: '1'
+    }
+    this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
   componentDidMount() {
-    try {
-      this.props.loadSingleProduct(this.props.match.params.id)
-    } catch (error) {
-      console.log(error)
-    }
+    this.props.loadSingleProduct(this.props.match.params.id)
+    this.props.loadOrderInfo()
   }
 
-  // handleClick = (product) => {
-  //   console.log('order->', this.props)
-  //   this.props.addToCart(product.id)
-  // }
+  handleSelectChange(evt) {
+    this.setState({quantity: evt.target.value})
+  }
 
   render() {
+    console.log('this.props', this.props)
+    const {quantity} = this.state
     const product = this.props.singleProduct
-    const orderId = this.props.order.id
-    console.log('props in single product', this.props.order)
+    const users = this.props.user
+    const orderId = this.props.order
+    console.log('ORDERID __>', orderId)
+    // const orderId = ((users || {}).order || {}).id
+
     return (
-      <div>
+      <div className="jumbotron text-center">
         <div className="single-product-container">
-          <h1>{product.name}</h1>
+          <h1 className="card-title h2 text-success">{product.name}</h1>
           <img src={product.imageUrl} className="img-products" />
 
           <h5>{product.category}</h5>
           <h5>Price: ${product.price}</h5>
+          <br />
           <p>Details: {product.description}</p>
           <div>
-            Quantity: <input />
+            Quantity:
+            <select
+              onChange={this.handleSelectChange}
+              value={quantity}
+              name="quantity"
+              // className="browser-default custom-select custom-select-lg mb-3"
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
           </div>
+          <br />
           <button
             type="submit"
             className="btn btn-success"
             onClick={() => {
               this.props.addToCart({
                 productId: product.id,
-                orderId: orderId,
-                quantity: product.quantity,
+                orderId: orderId[0].id,
+                quantity: this.state.quantity,
                 price: product.price
               })
             }}
@@ -66,14 +82,17 @@ const mapState = state => {
   return {
     singleProduct: state.singleProduct,
     user: state.user,
-    order: state.shoppingCart.order
+    order: state.shoppingCart.order.data
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: product => dispatch(fetchAddToCart(product))
+    addToCart: product => dispatch(fetchAddToCart(product)),
+    loadOrderInfo: () => {
+      dispatch(createNewOrder())
+    }
   }
 }
 

@@ -1,27 +1,42 @@
 import React from 'react'
-import {fetchCart, fetchAddToCart} from '../store/order'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {
+  deleteItemFromCart,
+  fetchCart,
+  submitOrderPut,
+  createNewOrder
+} from '../store/order'
+import {me} from '../store/user'
 
 class Order extends React.Component {
   constructor(props) {
     super(props)
+    // this.state = {
+    //   quantity: this.props.shoppingCart.shoppingCart.quantity,
+    // }
   }
-  componentDidMount() {
-    try {
-      this.props.loadTotalCart(this.props.order.id)
-    } catch (error) {
-      console.log(error)
-    }
+  async componentDidMount() {
+    await this.props.loadTotalCart(this.props.userId.id)
   }
 
   render() {
-    // console.log('props in shopping cart component--->', this.props)
-    const cart = this.props.shoppingCart.shoppingCart
-    console.log('CARTTTTT->', this.props)
+
+    console.log('props in shopping cart component--->', this.props.shoppingCart)
+    let sum = 0
+    const cart = this.props.shoppingCart
+
+    const userId = this.props.userId.id
+    const quantity = this.props
+    const order = this.props.order
+    const cartPrice = cart.map(el => el.price * el.quantity)
+    console.log(cartPrice, '$$')
     return (
       <div>
-        <h1>This is the shopping cart!!!</h1>
+        <h3 className="card-title h3 text-success">
+          This is your shopping cart:
+        </h3>
+        <br />
         <table className="table">
           <thead className="thead-light">
             <tr>
@@ -29,31 +44,64 @@ class Order extends React.Component {
               <th>Qty</th>
               <th>Price</th>
               <th>Total Price</th>
+              <th> </th>
+              <th> </th>
             </tr>
           </thead>
-          {cart ? (
+          {cart.length >= 1 ? (
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>{el.productId}</td>
-                  <td>{el.quantity}</td>
+                  {/* <td>[name]</td> */}
+                  <td>{el.product.name}</td>
+                  <td>
+                    {/* <select
+                      onChange={this.handleSelectChange}
+                      value={quantity}
+                      name="quantity"
+                    > */}
+                    {el.quantity}
+                    {/* </select> */}
+                  </td>
                   <td>${el.price}</td>
 
                   <td>${el.quantity * el.price}</td>
+
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      type="submit"
+                      onClick={() => this.props.deleteItem(el.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
               <tr>
-                <td colSpan="3.5" align="right">
-                  Subtotal
-                </td>
+                <td>Subtotal:</td>
+                <td> </td>
+                <td> </td>
+                <td>${cartPrice.reduce((sum, amount) => sum + amount)}</td>
               </tr>
             </tbody>
           ) : (
+            // <div>
             <h3>You do not have any items in your shopping cart</h3>
+            // </div>
           )}
         </table>
+
         <Link to="/orders/confirmed">
-          <button type="submit">Checkout</button>
+          <button
+            type="submit"
+            onClick={() =>
+              submitOrderPut(this.props.user.order.id, {isFulfilled: true})
+            }
+            className="btn btn-success"
+          >
+            Checkout
+          </button>
         </Link>
       </div>
     )
@@ -62,14 +110,20 @@ class Order extends React.Component {
 
 const mapState = state => {
   return {
-    shoppingCart: state.shoppingCart,
-    order: state.shoppingCart.order
+    shoppingCart: state.shoppingCart.shoppingCart,
+    order: state.shoppingCart.order.data,
+    userId: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    loadTotalCart: orderId => dispatch(fetchCart(orderId))
+    loadTotalCart: userId => dispatch(fetchCart(userId)),
+    deleteItem: id => dispatch(deleteItemFromCart(id)),
+    submitOrderPut: order => dispatch(submitOrderPut(order)),
+    loadOrderInfo: () => {
+      dispatch(createNewOrder())
+    }
   }
 }
 

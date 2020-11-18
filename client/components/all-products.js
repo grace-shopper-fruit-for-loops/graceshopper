@@ -8,6 +8,7 @@ class AllProducts extends React.Component {
   componentDidMount() {
     try {
       this.props.fetchAllProducts()
+
       // this.props.getNewOrder(id)
     } catch (error) {
       console.log(error)
@@ -15,24 +16,24 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    const {user, order} = this.props
-
-    console.log('user-->', order)
     return (
-      <div id="all-products">
-        <h2> These are all our healthy and yummy products! </h2>
+      <div className="jumbotron text-center">
+        <h2 className="card-title h2 text-success">
+          {' '}
+          These are all our healthy and yummy products!{' '}
+        </h2>
         <div>
-          <button
+          {/* <button
             onClick={() => this.props.postNewOrder(user.id)}
             type="submit"
           >
             Create New Order
-          </button>
+          </button> */}
           <div className="products-list-container">
             {this.props.products.map(product => (
               <div key={product.id}>
                 <Link to={`/products/${product.id}`}>
-                  <h3>{product.name}</h3>
+                  <p className="card-title h4 text-success">{product.name}</p>
                   <img
                     src={product.imageUrl}
                     height="300"
@@ -59,8 +60,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllProducts: () => dispatch(fetchProducts()),
-    postNewOrder: userId => dispatch(postNewOrder(userId))
+    fetchAllProducts: () => dispatch(fetchProducts())
+    // postNewOrder: (userId) => dispatch(postNewOrder(userId)),
   }
 }
 

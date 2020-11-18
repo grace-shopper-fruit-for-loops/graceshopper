@@ -4,15 +4,19 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
-    {/* <h1>Juices and Smoothies </h1> */}
-    <nav className="navbar  nav-color ">
+    <nav className="navbar">
       {isLoggedIn ? (
+        //  {isAdmin ? () : ()}
         <div>
           {/* The navbar will show these links after you log in */}
+          {isAdmin && <Link to="/admin">ADMIN</Link>}
+
           <Link to="/">Home</Link>
+          {isAdmin && <Link to="/createProduct">Create Products</Link>}
           <Link to="/products"> Products</Link>
+
           <Link to="/orders">
             {' '}
             <img
@@ -20,7 +24,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               className="img-nav"
             />
           </Link>
-
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -30,6 +33,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/">Home</Link>
           <Link to="/products"> Products</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Create Account</Link>
           <Link to="/orders">
             {' '}
             <img
@@ -37,8 +42,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               className="img-nav"
             />
           </Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Create Account</Link>
         </div>
       )}
     </nav>
@@ -51,7 +54,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin
   }
 }
 

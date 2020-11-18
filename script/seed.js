@@ -32,7 +32,7 @@ async function seed() {
       email: 'jessicacotrina@gmail.com',
       phone: '605-124-1254',
       address: '765 Main St',
-      isAdmin: false,
+      isAdmin: true,
       password: 'caracoles'
     })
   ])
@@ -169,11 +169,11 @@ async function seed() {
       userId: 1
     }),
     Order.create({
-      isFulfilled: false,
+      isFulfilled: true,
       userId: 2
     }),
     Order.create({
-      isFulfilled: false,
+      isFulfilled: true,
       userId: 2
     }),
     Order.create({
