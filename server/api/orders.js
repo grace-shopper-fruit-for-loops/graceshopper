@@ -76,15 +76,37 @@ router.post('/', async (req, res, next) => {
 //   }
 // })
 
-router.put('/:orderId', async (req, res, next) => {
+// router.put('/:orderId', async (req, res, next) => {
+//   try {
+//     console.log('REQ BODY IN ORDER', req.params.orderId)
+//     const updatedOrderDetails = await Order.findByPk(req.params.orderId)
+//     const data = {
+//       isFulfilled: req.body.isFulfilled
+//     }
+//     await updatedOrderDetails.update(data)
+//     res.send(updatedOrderDetails)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+router.put('/', async (req, res, next) => {
   try {
-    console.log('REQ BODY IN ORDER', req.params.orderId)
-    const updatedOrderDetails = await Order.findByPk(req.params.orderId)
-    const data = {
-      isFulfilled: req.body.isFulfilled
-    }
-    await updatedOrderDetails.update(data)
-    res.send(updatedOrderDetails)
+    const userId = await req.user.dataValues.id
+    console.log(userId, '00USER')
+    const order = await Order.update(
+      {isFulfilled: true},
+      {
+        where: {
+          userId: userId,
+          isFulfilled: false
+        },
+        returning: true,
+        plain: true
+      }
+    )
+    console.log(order[1], ';;;ORDER')
+    res.send(order[1])
   } catch (error) {
     next(error)
   }
