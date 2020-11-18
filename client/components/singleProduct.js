@@ -22,13 +22,9 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log('this.props', this.props)
     const {quantity} = this.state
     const product = this.props.singleProduct
-    const users = this.props.user
     const orderId = this.props.order
-    console.log('ORDERID __>', orderId)
-    // const orderId = ((users || {}).order || {}).id
 
     return (
       <div className="jumbotron text-center">
@@ -46,7 +42,6 @@ class SingleProduct extends React.Component {
               onChange={this.handleSelectChange}
               value={parseInt(quantity)}
               name="quantity"
-              // className="browser-default custom-select custom-select-lg mb-3"
             >
               <option>1</option>
               <option>2</option>
@@ -88,9 +83,7 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
     addToCart: product => dispatch(fetchAddToCart(product)),
-    loadOrderInfo: () => {
-      dispatch(createNewOrder())
-    }
+    loadOrderInfo: () => dispatch(createNewOrder())
   }
 }
 

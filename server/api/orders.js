@@ -5,7 +5,6 @@ const OrderDetails = require('../db/models/orderDetail')
 const {isAdmin} = require('../api/helper')
 
 router.get('/', async (req, res, next) => {
-  console.log('user ID passed in-->', req.user.dataValues.id)
   try {
     const orderId = await Order.findOne({
       where: {
@@ -13,7 +12,6 @@ router.get('/', async (req, res, next) => {
         isFulfilled: 'FALSE'
       }
     })
-    console.log('ORDER ID found>>>>>>>>???', orderId.id)
     const shoppingCart = await OrderDetails.findAll({
       where: {
         orderId: orderId.id
@@ -24,7 +22,6 @@ router.get('/', async (req, res, next) => {
         }
       ]
     })
-    console.log('shopping cart---->', shoppingCart)
     res.send(shoppingCart)
   } catch (error) {
     next(error)
@@ -33,15 +30,12 @@ router.get('/', async (req, res, next) => {
 
 router.post('/newOrder', async (req, res, next) => {
   try {
-    console.log('REQ USER', req.user)
     const newOrder = await Order.findOrCreate({
       where: {
         userId: req.user.dataValues.id,
         isFulfilled: false
       }
     })
-
-    console.log('new order', newOrder[0])
     res.send(newOrder)
   } catch (error) {
     next(error)
@@ -51,8 +45,6 @@ router.post('/newOrder', async (req, res, next) => {
 //
 // create a new product in the shopping cart
 router.post('/', async (req, res, next) => {
-  console.log('INSIDE OF ROUTE<<<<')
-  console.log('REQ BODY IN post', req.body)
   try {
     const order = OrderDetails.findOne({
       where: {
@@ -78,7 +70,6 @@ router.post('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     const userId = await req.user.dataValues.id
-    console.log(userId, '00USER')
     const order = await Order.update(
       {isFulfilled: true},
       {
@@ -90,7 +81,6 @@ router.put('/', async (req, res, next) => {
         plain: true
       }
     )
-    console.log(order[1], ';;;ORDER')
     res.send(order[1])
   } catch (error) {
     next(error)
@@ -118,8 +108,6 @@ router.put('/incrementQuantity', async (req, res, next) => {
 
 router.put('/decreaseQuantity', async (req, res, next) => {
   try {
-    // const userId = await req.user.dataValues.id
-    console.log('FROM Decrease', req.body)
     const data = await OrderDetails.update(
       {
         quantity: req.body.quantity - 1
@@ -139,10 +127,7 @@ router.put('/decreaseQuantity', async (req, res, next) => {
 
 // delete an item in the cart
 router.delete('/:id', async (req, res, next) => {
-  console.log('REQ PARAMS-->', req.params)
   try {
-    // let orderId = await OrderDetails.findByPk(req.params.id)
-    console.log('made it inside destroy request')
     await OrderDetails.destroy({
       where: {
         id: req.params.id

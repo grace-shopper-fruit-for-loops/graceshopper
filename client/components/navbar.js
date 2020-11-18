@@ -8,7 +8,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
     <nav className="navbar">
       {isLoggedIn ? (
-        //  {isAdmin ? () : ()}
         <div>
           {/* The navbar will show these links after you log in */}
           {isAdmin && <Link to="/admin">ADMIN</Link>}
