@@ -11,8 +11,6 @@ class AllProducts extends React.Component {
   componentDidMount() {
     try {
       this.props.fetchAllProducts()
-
-      // this.props.getNewOrder(id)
     } catch (error) {
       console.log(error)
     }
@@ -23,12 +21,6 @@ class AllProducts extends React.Component {
       <div id="all-products">
         <h2> These are all our healthy and yummy products! </h2>
         <div>
-          {/* <button
-            onClick={() => this.props.postNewOrder(user.id)}
-            type="submit"
-          >
-            Create New Order
-          </button> */}
           <div className="products-list-container">
             {this.props.products.map(product => (
               <div key={product.id}>
@@ -61,7 +53,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchAllProducts: () => dispatch(fetchProducts())
-    // postNewOrder: (userId) => dispatch(postNewOrder(userId)),
   }
 }
 

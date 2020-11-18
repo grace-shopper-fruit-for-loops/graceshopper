@@ -8,9 +8,7 @@ const createOrder = userId => ({
 })
 
 export const createNewOrder = () => {
-  console.log('HELLO MADE IT HERE!')
   return async dispatch => {
-    console.log('here!!')
     try {
       const newOrder = await axios.post('/api/orders/newOrder')
       dispatch(createOrder(newOrder))

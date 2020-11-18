@@ -45,7 +45,13 @@ router.post('/newOrder', async (req, res, next) => {
 // create a new product in the shopping cart
 router.post('/', async (req, res, next) => {
   try {
-    const newPost = await OrderDetails.create(req.body)
+    const {productId, orderId, quantity, price} = req.body
+    const newPost = await OrderDetails.create({
+      productId,
+      orderId,
+      quantity,
+      price
+    })
     res.send(newPost)
   } catch (error) {
     next(error)
