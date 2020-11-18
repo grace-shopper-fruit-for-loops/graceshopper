@@ -9,7 +9,7 @@ class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: '1'
+      quantity: 1
     }
     this.handleSelectChange = this.handleSelectChange.bind(this)
   }
@@ -46,7 +46,7 @@ class SingleProduct extends React.Component {
             Quantity:
             <select
               onChange={this.handleSelectChange}
-              value={quantity}
+              value={parseInt(quantity)}
               name="quantity"
               // className="browser-default custom-select custom-select-lg mb-3"
             >
