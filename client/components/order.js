@@ -1,7 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteItemFromCart, fetchCart, submitOrderPut} from '../store/order'
+import {
+  deleteItemFromCart,
+  fetchCart,
+  submitOrderPut,
+  createNewOrder
+} from '../store/order'
 import {me} from '../store/user'
 
 class Order extends React.Component {
@@ -17,8 +22,8 @@ class Order extends React.Component {
   }
 
   render() {
-    console.log('props in shopping cart component--->', this.props)
-    const cart = this.props.shoppingCart || []
+    console.log('props in shopping cart component--->', this.props.shoppingCart)
+    const cart = this.props.shoppingCart
     const userId = this.props.userId.id
     const quantity = this.props
     const order = this.props.order
@@ -40,8 +45,8 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>[name]</td>
-                  {/* <td>{el.product.name}</td> */}
+                  {/* <td>[name]</td> */}
+                  <td>{el.id}</td>
                   <td>
                     {/* <select
                       onChange={this.handleSelectChange}
@@ -98,7 +103,7 @@ class Order extends React.Component {
 const mapState = state => {
   return {
     shoppingCart: state.shoppingCart.shoppingCart,
-    ORDER: state.shoppingCart.order,
+    order: state.shoppingCart.order.data,
     userId: state.user
   }
 }
@@ -107,7 +112,10 @@ const mapDispatch = dispatch => {
   return {
     loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: id => dispatch(deleteItemFromCart(id)),
-    submitOrderPut: order => dispatch(submitOrderPut(order))
+    submitOrderPut: order => dispatch(submitOrderPut(order)),
+    loadOrderInfo: () => {
+      dispatch(createNewOrder())
+    }
   }
 }
 

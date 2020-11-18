@@ -28,7 +28,9 @@ class SingleProduct extends React.Component {
     const {quantity} = this.state
     const product = this.props.singleProduct
     const users = this.props.user
-    const orderId = ((users || {}).order || {}).id
+    const orderId = this.props.order
+    console.log('ORDERID __>', orderId)
+    // const orderId = ((users || {}).order || {}).id
 
     return (
       <div>
@@ -60,7 +62,7 @@ class SingleProduct extends React.Component {
             onClick={() => {
               this.props.addToCart({
                 productId: product.id,
-                orderId: orderId,
+                orderId: orderId[0].id,
                 quantity: this.state.quantity,
                 price: product.price
               })
@@ -78,7 +80,7 @@ const mapState = state => {
   return {
     singleProduct: state.singleProduct,
     user: state.user,
-    ORDER: state.shoppingCart.order.data
+    order: state.shoppingCart.order.data
   }
 }
 
