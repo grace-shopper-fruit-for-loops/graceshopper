@@ -15,7 +15,7 @@ async function seed() {
       phone: '605-123-1234',
       address: '101 Main St',
       isAdmin: false,
-      password: '12345!'
+      password: 'hola'
     }),
     User.create({
       firstName: 'Mackenzie',
@@ -49,6 +49,56 @@ async function seed() {
         'https://cdn.pixabay.com/photo/2016/08/23/15/52/fresh-orange-juice-1614822_1280.jpg'
     }),
     Product.create({
+      name: 'Cranberry Juice',
+      description:
+        'This juice is known for treating or preventing urinary tract infection diseases and it is also an amazing support to digestive health',
+      category: 'Juice',
+      quantity: 6,
+      price: 4,
+      imageUrl:
+        'https://health.clevelandclinic.org/wp-content/uploads/sites/3/2015/10/cranberryJuice-452047269-770x533-1.jpg'
+    }),
+    Product.create({
+      name: 'Pear Juice',
+      description:
+        'Pears are a great source of antioxidants, rich in Vitamin C, possibly protect against ulcers and a good source of potassium. ',
+      category: 'Juice',
+      quantity: 6,
+      price: 7,
+      imageUrl:
+        'https://livingfreshdaily.com/wp-content/uploads/2019/10/pear-juice-recipe.jpg'
+    }),
+    Product.create({
+      name: 'Peach Juice',
+      description:
+        'Peach juice is a natural diuretic and laxative agent, which helps to improve kidney and bladder function.',
+      category: 'Juice',
+      quantity: 9,
+      price: 8,
+      imageUrl:
+        'https://cdn2.stylecraze.com/wp-content/uploads/2014/05/2026_10-Amazing-Health-Benefits-of-Peach-Juice_iS.jpg'
+    }),
+    Product.create({
+      name: 'Pineapple Juice',
+      description:
+        'Pineapple juice has loads of vitamin C and antioxidants that can treat acne, sun damage and uneven skin toning. Also sweet and refreshing',
+      category: 'Juice',
+      quantity: 6,
+      price: 5,
+      imageUrl:
+        'https://www.unityecovillage.org/unityecoculture/wp-content/uploads/2019/06/freshpineapplejuice.jpg'
+    }),
+    Product.create({
+      name: 'Grapefruit Juice',
+      description:
+        'It is rich in vitamin C and ranges from sweet-tart to very sour. Ideal for delicate palates',
+      category: 'Juice',
+      quantity: 8,
+      price: 7,
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX_GEI7yCjtqJjeDGgN8q30pYfROFgiKgtkg&usqp=CAU'
+    }),
+    Product.create({
       name: 'Apple Juice',
       description:
         'Supports hydration. Apple juice is 88% water and tastes good so... it is good for the kids!',
@@ -56,7 +106,7 @@ async function seed() {
       quantity: 4,
       price: 4,
       imageUrl:
-        'https://images.unsplash.com/photo-1605199910378-edb0c0709ab4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSglrd8WNqRCIUkk2KG7M2soAmUOk3-DgZGdw&usqp=CAU'
     }),
     Product.create({
       name: 'Tomato Juice',
@@ -66,7 +116,7 @@ async function seed() {
       quantity: 4,
       price: 9,
       imageUrl:
-        'https://cdn.pixabay.com/photo/2014/04/05/11/41/tomato-316743_1280.jpg'
+        'https://morejuicepress.com/wp-content/uploads/2016/01/tomato-juice_Sp.jpg'
     }),
     Product.create({
       name: 'Carrot Juice',
@@ -146,7 +196,7 @@ async function seed() {
       quantity: 8,
       price: 12,
       imageUrl:
-        'https://cdn.pixabay.com/photo/2017/07/25/17/25/smoothie-2538950_1280.jpg'
+        'https://images.eatthismuch.com/site_media/img/906528_Shamarie84_bb81007b-26be-4f5f-a01a-78f379622741.png'
     }),
     Product.create({
       name: 'Mango my Love',
@@ -157,6 +207,35 @@ async function seed() {
       price: 11,
       imageUrl:
         'https://cdn.pixabay.com/photo/2018/05/07/11/22/mango-3380631__480.jpg'
+    }),
+    Product.create({
+      name: 'Piña Tropical',
+      description:
+        'Delicious and refreshing mix of pinapple, mint and a touch of orange juice. Perfect for the summer',
+      category: 'Smoothie',
+      quantity: 5,
+      price: 10,
+      imageUrl:
+        'https://www.dinneratthezoo.com/wp-content/uploads/2018/05/pineapple-smoothie-3.jpg'
+    }),
+    Product.create({
+      name: 'Only for Avocado Lovers',
+      description:
+        'Ever thought about drinking avocado? This smoothie will take your love for avocado to another different level',
+      category: 'Smoothie',
+      quantity: 5,
+      price: 14,
+      imageUrl:
+        'https://cdn.loveandlemons.com/wp-content/uploads/2017/08/avocado-smoothie.jpg'
+    }),
+    Product.create({
+      name: 'Strawberry Pineapple',
+      description:
+        'Perfect combination of sweetnes and freshness. With this smoothie you will boost up your antioxidants!',
+      category: 'Smoothie',
+      quantity: 5,
+      price: 10,
+      imageUrl: 'https://images.media-allrecipes.com/userphotos/6440442.jpg'
     })
   ])
 

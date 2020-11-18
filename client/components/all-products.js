@@ -19,16 +19,9 @@ class AllProducts extends React.Component {
     return (
       <div className="jumbotron text-center">
         <h2 className="card-title h2 text-success">
-          {' '}
-          These are all our healthy and yummy products!{' '}
+          These are all our healthy and yummy products!
         </h2>
         <div>
-          {/* <button
-            onClick={() => this.props.postNewOrder(user.id)}
-            type="submit"
-          >
-            Create New Order
-          </button> */}
           <div className="products-list-container">
             {this.props.products.map(product => (
               <div key={product.id}>
