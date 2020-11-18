@@ -48,6 +48,7 @@ router.post('/newOrder', async (req, res, next) => {
   }
 })
 
+//
 // create a new product in the shopping cart
 router.post('/', async (req, res, next) => {
   console.log('INSIDE OF ROUTE<<<<')
@@ -62,16 +63,12 @@ router.post('/', async (req, res, next) => {
       // update
       let values = req.body
       if (obj) {
-        console.log('Quantity Before', values.quantity)
         values.quantity += obj.quantity
-        console.log('Quantity After', values.quantity)
         return obj.update(values)
       }
       // insert
       return OrderDetails.create(values)
     })
-
-    // const newPost = await OrderDetails.create(req.body)
     res.send(order)
   } catch (error) {
     next(error)
