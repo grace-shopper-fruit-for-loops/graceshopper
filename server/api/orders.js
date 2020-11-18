@@ -48,13 +48,28 @@ router.post('/newOrder', async (req, res, next) => {
   }
 })
 
+//
 // create a new product in the shopping cart
 router.post('/', async (req, res, next) => {
   console.log('INSIDE OF ROUTE<<<<')
   console.log('REQ BODY IN post', req.body)
   try {
-    const newPost = await OrderDetails.create(req.body)
-    res.send(newPost)
+    const order = OrderDetails.findOne({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId
+      }
+    }).then(function(obj) {
+      // update
+      let values = req.body
+      if (obj) {
+        values.quantity += obj.quantity
+        return obj.update(values)
+      }
+      // insert
+      return OrderDetails.create(values)
+    })
+    res.send(order)
   } catch (error) {
     next(error)
   }
