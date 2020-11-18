@@ -56,11 +56,13 @@ export const createNewOrder = () => {
   }
 }
 
+
 export const fetchCart = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/orders')
       console.log('data from fetch cart thunk', data)
+
       dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error, 'error in the fetch cart thunk')
@@ -69,7 +71,6 @@ export const fetchCart = () => {
 }
 
 export const fetchAddToCart = productObj => {
-  console.log('product obj-->', productObj)
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/orders', productObj)
@@ -83,12 +84,9 @@ export const fetchAddToCart = productObj => {
 }
 
 export const deleteItemFromCart = id => {
-  console.log('delete thunk with order details ID', id)
   return dispatch => {
     try {
-      console.log('>>>also made it here')
       axios.delete(`/api/orders/${id}`)
-      console.log('also made it here')
       dispatch(deleteItem(id))
     } catch (error) {
       console.log(error)

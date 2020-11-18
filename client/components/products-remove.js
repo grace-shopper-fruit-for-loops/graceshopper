@@ -57,7 +57,7 @@ class AllProductstoRemove extends React.Component {
     return (
       <div>
         <div>
-          <h1>All products</h1>
+          <h3 className="card-title h2 text-success">All current products</h3>
           <br />
           <button
             className="btn btn-primary"
