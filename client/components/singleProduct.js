@@ -1,9 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {fetchSingleProduct} from '../store/singleProduct'
-import {fetchAddToCart, createNewOrder, postNewOrder} from '../store/order'
-import {fetchProducts} from '../store/products'
+import {fetchAddToCart, createNewOrder} from '../store/order'
 
 class SingleProduct extends React.Component {
   constructor(props) {

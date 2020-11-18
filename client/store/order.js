@@ -156,10 +156,6 @@ export default function shoppingCart(state = initalState, action) {
       console.log('Checking dispatch values', action)
       return {
         ...state,
-        // shoppingCart: [
-        //   ...state.shoppingCart.filter((cart) => cart.id !== action.order.id),
-        //   action.order,
-        // ],
         shoppingCart: [
           ...state.shoppingCart.map(
             cart => (cart.id === action.order.id ? action.order : cart)
