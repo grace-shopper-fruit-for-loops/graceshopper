@@ -46,11 +46,13 @@ export const createNewOrder = () => {
   }
 }
 
+
 export const fetchCart = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/orders')
       console.log('data from fetch cart thunk', data)
+
       dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error)

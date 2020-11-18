@@ -17,20 +17,24 @@ class Order extends React.Component {
     // }
   }
   async componentDidMount() {
-    // console.log('props inside component did mount', this.props)
     await this.props.loadTotalCart(this.props.userId.id)
   }
 
   render() {
+
     let sum = 0
     const cart = this.props.shoppingCart
+
     const userId = this.props.userId.id
     console.log('props in shopping cart component--->', userId)
     const quantity = this.props
     const cartPrice = cart.map(el => el.price * el.quantity)
     return (
       <div>
-        <h1>This is the shopping cart!!!</h1>
+        <h3 className="card-title h3 text-success">
+          This is your shopping cart:
+        </h3>
+        <br />
         <table className="table">
           <thead className="thead-light">
             <tr>
@@ -42,7 +46,7 @@ class Order extends React.Component {
               <th> </th>
             </tr>
           </thead>
-          {cart.length ? (
+          {cart.length >= 1 ? (
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
