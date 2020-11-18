@@ -22,15 +22,13 @@ class Order extends React.Component {
 
   render() {
 
-    console.log('props in shopping cart component--->', this.props.shoppingCart)
     let sum = 0
     const cart = this.props.shoppingCart
 
     const userId = this.props.userId.id
+    console.log('props in shopping cart component--->', userId)
     const quantity = this.props
-    const order = this.props.order
     const cartPrice = cart.map(el => el.price * el.quantity)
-    console.log(cartPrice, '$$')
     return (
       <div>
         <h3 className="card-title h3 text-success">
@@ -95,9 +93,7 @@ class Order extends React.Component {
         <Link to="/orders/confirmed">
           <button
             type="submit"
-            onClick={() =>
-              submitOrderPut(this.props.user.order.id, {isFulfilled: true})
-            }
+            onClick={() => this.props.submitOrderPut()}
             className="btn btn-success"
           >
             Checkout
