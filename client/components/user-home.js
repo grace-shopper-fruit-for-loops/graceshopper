@@ -1,25 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
 /**
  * COMPONENT
  */
 export const UserHome = props => {
   const {email} = props
-
-  //const {id} = props
-  console.log('PROPS', props)
-
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-      {/* <h3>Welcome, {id}</h3> */}
-
   const {firstName} = props
   const {lastName} = props
   console.log('PROPS', props)
-
   return (
     <div className="jumbotron text-center hoverable p-4">
       <div className="row">
@@ -35,7 +24,6 @@ export const UserHome = props => {
             </a>
           </div>
         </div>
-
         <div className="col-md-7 text-md-left ml-3 mt-3">
           <a href="#!" className="green-text">
             <h4 className="h6 pb-1">
@@ -61,11 +49,9 @@ export const UserHome = props => {
           <a className="btn btn-success">Read more</a>
         </div>
       </div>
-
     </div>
   )
 }
-
 /**
  * CONTAINER
  */
@@ -78,9 +64,7 @@ const mapState = state => {
     id: state.user.id
   }
 }
-
 export default connect(mapState)(UserHome)
-
 /**
  * PROP TYPES
  */
