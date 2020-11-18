@@ -57,8 +57,6 @@ export const fetchCart = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/orders')
-      console.log('data from fetch cart thunk', data)
-
       dispatch(getShoppingCart(data))
     } catch (error) {
       console.log(error)
@@ -73,7 +71,7 @@ export const fetchAddToCart = productObj => {
       dispatch(addToCart(data))
       alert('Item Added To Cart')
     } catch (error) {
-      console.log(error, 'error in THIS thunk')
+      console.log(error)
     }
   }
 }
@@ -115,7 +113,6 @@ export const incrementQuantity = orderDetails => {
 export const decreaseQuantity = orderDetails => {
   return async dispatch => {
     try {
-      console.log('ORDER DETAILS IN DECREASE', orderDetails)
       await axios.put('/api/orders/decreaseQuantity', orderDetails)
       orderDetails.quantity = orderDetails.quantity - 1
       dispatch(updateQuantity(orderDetails))
@@ -153,7 +150,6 @@ export default function shoppingCart(state = initalState, action) {
     case SUBMIT_ORDER:
       return initalState
     case UPDATE_QUANTITY:
-      console.log('Checking dispatch values', action)
       return {
         ...state,
         shoppingCart: [

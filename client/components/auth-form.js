@@ -9,8 +9,6 @@ import {createNewOrder} from '../store/order'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-  console.log('props in auth form', props)
-
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>

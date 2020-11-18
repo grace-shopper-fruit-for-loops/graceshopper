@@ -9,26 +9,17 @@ import {
   incrementQuantity,
   decreaseQuantity
 } from '../store/order'
-import {me} from '../store/user'
 
 class Order extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   quantity: this.props.shoppingCart.shoppingCart.quantity,
-    // }
   }
   async componentDidMount() {
     await this.props.loadTotalCart(this.props.userId.id)
   }
 
   render() {
-    let sum = 0
     const cart = this.props.shoppingCart
-
-    const userId = this.props.userId.id
-    console.log('props in shopping cart component--->', this.props)
-    const quantity = this.props
     const cartPrice = cart.map(el => el.price * el.quantity)
     const containsUndefinedProducts = cart.filter(
       el => el.product === undefined
@@ -58,22 +49,15 @@ class Order extends React.Component {
               <tbody>
                 {cart.map(el => (
                   <tr key={el.id}>
-                    {/* <td>[name]</td> */}
                     <td>{el.product.name}</td>
                     <td>
-                      {/* <select
-                      onChange={this.handleSelectChange}
-                      value={quantity}
-                      name="quantity"
-                    > */}
                       <button
                         className="btn btn-success"
                         onClick={() => this.props.decreaseQuantity(el)}
                       >
                         -
                       </button>
-                      {el.quantity}
-                      {/* </select> */}
+                      <span> {el.quantity}</span>
                       <button
                         className="btn btn-success"
                         onClick={() => this.props.incrementQuantity(el)}
@@ -115,9 +99,7 @@ class Order extends React.Component {
             </Link>
           </div>
         ) : (
-          // <div>
           <h3>You do not have any items in your shopping cart</h3>
-          // </div>
         )}
       </div>
     )
@@ -137,9 +119,7 @@ const mapDispatch = dispatch => {
     loadTotalCart: userId => dispatch(fetchCart(userId)),
     deleteItem: id => dispatch(deleteItemFromCart(id)),
     submitOrderPut: order => dispatch(submitOrderPut(order)),
-    loadOrderInfo: () => {
-      dispatch(createNewOrder())
-    },
+    loadOrderInfo: () => dispatch(createNewOrder()),
     incrementQuantity: orderDetails =>
       dispatch(incrementQuantity(orderDetails)),
     decreaseQuantity: orderDetails => dispatch(decreaseQuantity(orderDetails))

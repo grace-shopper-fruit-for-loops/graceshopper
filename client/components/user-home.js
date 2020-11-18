@@ -8,7 +8,7 @@ export const UserHome = props => {
   const {email} = props
   const {firstName} = props
   const {lastName} = props
-  console.log('PROPS', props)
+
   return (
     <div className="jumbotron text-center hoverable p-4">
       <div className="row">
@@ -56,7 +56,6 @@ export const UserHome = props => {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('STATE', state)
   return {
     email: state.user.email,
     firstName: state.user.firstName,

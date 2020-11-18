@@ -6,13 +6,7 @@ import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
   componentDidMount() {
-    try {
-      this.props.fetchAllProducts()
-
-      // this.props.getNewOrder(id)
-    } catch (error) {
-      console.log(error)
-    }
+    this.props.fetchAllProducts()
   }
 
   render() {
@@ -54,7 +48,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchAllProducts: () => dispatch(fetchProducts())
-    // postNewOrder: (userId) => dispatch(postNewOrder(userId)),
   }
 }
 
