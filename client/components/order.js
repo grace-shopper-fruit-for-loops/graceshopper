@@ -5,7 +5,9 @@ import {
   deleteItemFromCart,
   fetchCart,
   submitOrderPut,
-  createNewOrder
+  createNewOrder,
+  incrementQuantity,
+  decreaseQuantity
 } from '../store/order'
 import {me} from '../store/user'
 
@@ -25,7 +27,7 @@ class Order extends React.Component {
     const cart = this.props.shoppingCart
 
     const userId = this.props.userId.id
-    console.log('props in shopping cart component--->', userId)
+    console.log('props in shopping cart component--->', this.props)
     const quantity = this.props
     const cartPrice = cart.map(el => el.price * el.quantity)
     const containsUndefinedProducts = cart.filter(
@@ -40,70 +42,83 @@ class Order extends React.Component {
           This is your shopping cart:
         </h3>
         <br />
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Name</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th>Total Price</th>
-              <th> </th>
-              <th> </th>
-            </tr>
-          </thead>
-          {hasItemsInCart ? (
-            <tbody>
-              {cart.map(el => (
-                <tr key={el.id}>
-                  {/* <td>[name]</td> */}
-                  <td>{el.product.name}</td>
-                  <td>
-                    {/* <select
+        {hasItemsInCart ? (
+          <div>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th>Name</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Total Price</th>
+                  <th> </th>
+                  <th> </th>
+                </tr>
+              </thead>
+              <tbody>
+                {cart.map(el => (
+                  <tr key={el.id}>
+                    {/* <td>[name]</td> */}
+                    <td>{el.product.name}</td>
+                    <td>
+                      {/* <select
                       onChange={this.handleSelectChange}
                       value={quantity}
                       name="quantity"
                     > */}
-                    {el.quantity}
-                    {/* </select> */}
-                  </td>
-                  <td>${el.price}</td>
+                      <button
+                        className="btn btn-success"
+                        onClick={() => this.props.decreaseQuantity(el)}
+                      >
+                        -
+                      </button>
+                      {el.quantity}
+                      {/* </select> */}
+                      <button
+                        className="btn btn-success"
+                        onClick={() => this.props.incrementQuantity(el)}
+                      >
+                        +
+                      </button>
+                    </td>
+                    <td>${el.price}</td>
 
-                  <td>${el.quantity * el.price}</td>
+                    <td>${el.quantity * el.price}</td>
 
-                  <td>
-                    <button
-                      className="btn btn-success"
-                      type="submit"
-                      onClick={() => this.props.deleteItem(el.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+                    <td>
+                      <button
+                        className="btn btn-success"
+                        type="submit"
+                        onClick={() => this.props.deleteItem(el.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>Subtotal:</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>${cartPrice.reduce((sum, amount) => sum + amount)}</td>
                 </tr>
-              ))}
-              <tr>
-                <td>Subtotal:</td>
-                <td> </td>
-                <td> </td>
-                <td>${cartPrice.reduce((sum, amount) => sum + amount)}</td>
-              </tr>
-            </tbody>
-          ) : (
-            <div>
-              <h3>You do not have any items in your shopping cart</h3>
-            </div>
-          )}
-        </table>
-
-        <Link to="/orders/confirmed">
-          <button
-            type="submit"
-            onClick={() => this.props.submitOrderPut()}
-            className="btn btn-success"
-          >
-            Checkout
-          </button>
-        </Link>
+              </tbody>
+            </table>
+            <Link to="/orders/confirmed">
+              <button
+                type="submit"
+                onClick={() => this.props.submitOrderPut()}
+                className="btn btn-success"
+              >
+                Checkout
+              </button>
+            </Link>
+          </div>
+        ) : (
+          // <div>
+          <h3>You do not have any items in your shopping cart</h3>
+          // </div>
+        )}
       </div>
     )
   }
@@ -124,7 +139,10 @@ const mapDispatch = dispatch => {
     submitOrderPut: order => dispatch(submitOrderPut(order)),
     loadOrderInfo: () => {
       dispatch(createNewOrder())
-    }
+    },
+    incrementQuantity: orderDetails =>
+      dispatch(incrementQuantity(orderDetails)),
+    decreaseQuantity: orderDetails => dispatch(decreaseQuantity(orderDetails))
   }
 }
 
