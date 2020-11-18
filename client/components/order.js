@@ -23,10 +23,13 @@ class Order extends React.Component {
 
   render() {
     console.log('props in shopping cart component--->', this.props.shoppingCart)
+    let sum = 0
     const cart = this.props.shoppingCart
     const userId = this.props.userId.id
     const quantity = this.props
     const order = this.props.order
+    const cartPrice = cart.map(el => el.price * el.quantity)
+    console.log(cartPrice, '$$')
     return (
       <div>
         <h1>This is the shopping cart!!!</h1>
@@ -45,8 +48,8 @@ class Order extends React.Component {
             <tbody>
               {cart.map(el => (
                 <tr key={el.id}>
-                  <td>[name]</td>
-                  {/* <td>{el.product.name}</td> */}
+                  {/* <td>[name]</td> */}
+                  <td>{el.product.name}</td>
                   <td>
                     {/* <select
                       onChange={this.handleSelectChange}
@@ -72,9 +75,10 @@ class Order extends React.Component {
                 </tr>
               ))}
               <tr>
-                <td colSpan="3.5" align="right">
-                  Subtotal
-                </td>
+                <td>Subtotal:</td>
+                <td> </td>
+                <td> </td>
+                <td>${cartPrice.reduce((sum, amount) => sum + amount)}</td>
               </tr>
             </tbody>
           ) : (
