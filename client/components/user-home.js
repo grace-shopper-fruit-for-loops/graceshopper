@@ -7,6 +7,15 @@ import {connect} from 'react-redux'
  */
 export const UserHome = props => {
   const {email} = props
+
+  //const {id} = props
+  console.log('PROPS', props)
+
+  return (
+    <div>
+      <h3>Welcome, {email}</h3>
+      {/* <h3>Welcome, {id}</h3> */}
+
   const {firstName} = props
   const {lastName} = props
   console.log('PROPS', props)
@@ -52,6 +61,7 @@ export const UserHome = props => {
           <a className="btn btn-success">Read more</a>
         </div>
       </div>
+
     </div>
   )
 }
