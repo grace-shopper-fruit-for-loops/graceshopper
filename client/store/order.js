@@ -46,7 +46,6 @@ export const createNewOrder = () => {
   }
 }
 
-
 export const fetchCart = () => {
   return async dispatch => {
     try {
@@ -63,6 +62,7 @@ export const fetchCart = () => {
 export const fetchAddToCart = productObj => {
   return async dispatch => {
     try {
+      console.log('productObj', productObj)
       const {data} = await axios.post('/api/orders', productObj)
       dispatch(addToCart(data))
       alert('Item Added To Cart')

@@ -53,8 +53,26 @@ router.post('/', async (req, res, next) => {
   console.log('INSIDE OF ROUTE<<<<')
   console.log('REQ BODY IN post', req.body)
   try {
-    const newPost = await OrderDetails.create(req.body)
-    res.send(newPost)
+    const order = OrderDetails.findOne({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId
+      }
+    }).then(function(obj) {
+      // update
+      let values = req.body
+      if (obj) {
+        console.log('Quantity Before', values.quantity)
+        values.quantity += obj.quantity
+        console.log('Quantity After', values.quantity)
+        return obj.update(values)
+      }
+      // insert
+      return OrderDetails.create(values)
+    })
+
+    // const newPost = await OrderDetails.create(req.body)
+    res.send(order)
   } catch (error) {
     next(error)
   }
