@@ -20,7 +20,7 @@ class SingleProduct extends React.Component {
   }
 
   handleSelectChange(evt) {
-    this.setState({quantity: evt.target.value})
+    this.setState({quantity: parseInt(evt.target.value)})
   }
 
   render() {

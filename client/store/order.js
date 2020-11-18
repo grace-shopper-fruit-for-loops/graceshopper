@@ -11,6 +11,8 @@ const DELETE_ITEM = 'DELETE_ITEM'
 
 const SUBMIT_ORDER = 'SUBMIT_ORDER'
 
+const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
+
 const createOrder = userId => ({
   type: CREATE_ORDER,
   userId
@@ -35,6 +37,11 @@ const submitOrder = () => ({
   type: SUBMIT_ORDER
 })
 
+const updateQuantity = order => ({
+  type: UPDATE_QUANTITY,
+  order
+})
+
 export const createNewOrder = () => {
   return async dispatch => {
     try {
@@ -45,7 +52,6 @@ export const createNewOrder = () => {
     }
   }
 }
-
 
 export const fetchCart = () => {
   return async dispatch => {
@@ -94,6 +100,31 @@ export const submitOrderPut = () => {
   }
 }
 
+export const incrementQuantity = orderDetails => {
+  return async dispatch => {
+    try {
+      await axios.put('/api/orders/incrementQuantity', orderDetails)
+      orderDetails.quantity = orderDetails.quantity + 1
+      dispatch(updateQuantity(orderDetails))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const decreaseQuantity = orderDetails => {
+  return async dispatch => {
+    try {
+      console.log('ORDER DETAILS IN DECREASE', orderDetails)
+      await axios.put('/api/orders/decreaseQuantity', orderDetails)
+      orderDetails.quantity = orderDetails.quantity - 1
+      dispatch(updateQuantity(orderDetails))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 const initalState = {
   shoppingCart: [],
   order: {}
@@ -121,6 +152,20 @@ export default function shoppingCart(state = initalState, action) {
       }
     case SUBMIT_ORDER:
       return initalState
+    case UPDATE_QUANTITY:
+      console.log('Checking dispatch values', action)
+      return {
+        ...state,
+        // shoppingCart: [
+        //   ...state.shoppingCart.filter((cart) => cart.id !== action.order.id),
+        //   action.order,
+        // ],
+        shoppingCart: [
+          ...state.shoppingCart.map(
+            cart => (cart.id === action.order.id ? action.order : cart)
+          )
+        ]
+      }
     default:
       return state
   }

@@ -63,7 +63,7 @@ router.post('/', async (req, res, next) => {
       // update
       let values = req.body
       if (obj) {
-        values.quantity += obj.quantity
+        values.quantity = parseInt(values.quantity) + parseInt(obj.quantity)
         return obj.update(values)
       }
       // insert
@@ -92,6 +92,46 @@ router.put('/', async (req, res, next) => {
     )
     console.log(order[1], ';;;ORDER')
     res.send(order[1])
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/incrementQuantity', async (req, res, next) => {
+  try {
+    const data = await OrderDetails.update(
+      {
+        quantity: req.body.quantity + 1
+      },
+      {
+        where: {
+          productId: req.body.productId,
+          orderId: req.body.orderId
+        }
+      }
+    )
+    res.send(data)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/decreaseQuantity', async (req, res, next) => {
+  try {
+    // const userId = await req.user.dataValues.id
+    console.log('FROM Decrease', req.body)
+    const data = await OrderDetails.update(
+      {
+        quantity: req.body.quantity - 1
+      },
+      {
+        where: {
+          productId: req.body.productId,
+          orderId: req.body.orderId
+        }
+      }
+    )
+    res.send(data)
   } catch (error) {
     next(error)
   }
